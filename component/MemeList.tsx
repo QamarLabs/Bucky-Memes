@@ -6,8 +6,9 @@ const NewsletterComponent = dynamic(
   () => import("./common/NewsletterComponent"),
   { ssr: false }
 );
-const Newsletter = dynamic(() => import("./Newsletter"), { ssr: false });
-const MemeCard = dynamic(() => import("./common/MemeCard"), { ssr: false });
+
+import Newsletter  from "./Newsletter";
+import MemeCard from "./common/MemeCard";
 
 const MemeList = (props: { memes: any; locale: Locale }) => {
   if (!props.memes?.length) {

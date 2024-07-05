@@ -9,7 +9,7 @@ import { appWithTranslation } from "next-i18next";
 import customTheme from "../theme";
 import { FormProvider } from "../component/common/FormContext";
 
-const Navbar = dynamic(() => import("../component/common/NavbarComponent"));
+const Navbar = dynamic(() => import("../component/common/NavbarComponent"), {ssr: false});
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

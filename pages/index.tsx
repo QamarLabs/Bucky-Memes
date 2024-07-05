@@ -250,7 +250,7 @@ export default function Memes() {
         <Box h="100vh" padding="15px">
           {isLoading ? (
             <Box textAlign="center">
-              <CircularProgress isIndeterminate color="teal" />
+              <CircularProgress isIndeterminate color="buckyGoldOne" />
             </Box>
           ) : (
             <MemeList memes={memes} locale="en" />

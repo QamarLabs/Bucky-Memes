@@ -1,4 +1,10 @@
-import { Link as ChakraLink, Box, Badge, Button } from "@chakra-ui/react";
+import {
+  Link as ChakraLink,
+  Box,
+  Badge,
+  Button,
+  CircularProgress,
+} from "@chakra-ui/react";
 import { Locale } from "./NavbarComponent";
 import Link from "next/link";
 import NextImage from "next/image";
@@ -14,6 +20,7 @@ interface MemeCardProps {
 }
 
 const MemeCard = ({ meme, locale }: MemeCardProps) => {
+  const [loadingImg, setLoadingImg] = useState<boolean>(true);
   const {
     copied,
     downloaded,
@@ -60,15 +67,19 @@ const MemeCard = ({ meme, locale }: MemeCardProps) => {
       }}
     >
       <Box width="100%" minHeight={imageHeight} position="relative">
+        {loadingImg ? (
+          <CircularProgress isIndeterminate color="buckyGoldOne" />
+        ) : null}
         <NextImage
-          layout="fill"
+          fill={true}
           alt={meme.cloudinaryUrl}
           src={meme.cloudinaryUrl}
           loader={() => meme.cloudinaryUrl}
+          onLoadingComplete={() => setLoadingImg(false)}
         />
       </Box>
 
-      <Box minHeight="0px" p="5" display='flex'>
+      <Box minHeight="0px" p="5" display="flex">
         <Button
           onClick={copyImageToClipboard(meme.cloudinaryUrl, meme.name)}
           size={iconSize}
