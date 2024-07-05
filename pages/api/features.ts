@@ -1,8 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { connectToDatabase } from "../../helpers/mongoDbClient";
-import { NextRequest, NextResponse } from "next/server";
 
-export default async function activities(
+export default async function features(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
