@@ -14,6 +14,8 @@ try {
     
     const features = new Set(memes.flatMap((meme) => meme.features || [])); // Use flatMap on the array of documents
 
+    await client.close();
+
     return res.json(Array.from(features.values()));
   } catch (error) {
     await db.collection('logs').insertOne({ message: JSON.stringify(error) });
