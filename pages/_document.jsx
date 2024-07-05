@@ -8,10 +8,6 @@ export default class Document extends NextDocument {
             <Html lang="en">
                 <Head>
                     <link rel="shortcut icon" href="/favicon.jpg" />
-                    <link
-                        rel="stylesheet"
-                        href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-                    />
                 </Head>
                 <body>
                     <Main />
