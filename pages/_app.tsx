@@ -13,22 +13,6 @@ const Navbar = dynamic(() => import("../component/common/NavbarComponent"), {ssr
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      <Script
-        id="google_analytics_script"
-        strategy="lazyOnload"
-        src={"https://www.googletagmanager.com/gtag/js?id=G-X13RB8105W"}
-      />
-
-      <Script strategy="lazyOnload" id="google_analytics_script_config">
-        {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-
-                gtag('config', 'G-X13RB8105W');
-        `}
-      </Script>
-
       <ChakraProviderWrapper>
         <FormProvider>
           <Navbar />
