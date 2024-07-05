@@ -25,11 +25,6 @@ a {
   box-sizing: border-box;
 }
 
-.leaflet-container {
-  z-index: 50;
-  height: 95vh;
-}
-
 .search-bar {
   width: 93% !important;
   background-color: #333;

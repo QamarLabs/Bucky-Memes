@@ -13,14 +13,11 @@
         "@chakra-ui/react": "^2.0.0",
         "@emotion/react": "^11.7.1",
         "@emotion/styled": "^11.6.0",
-        "@supabase/supabase-js": "^1.28.5",
-        "@vercel/analytics": "^0.1.11",
         "dayjs": "^1.10.7",
         "dotenv": "^10.0.0",
         "formik": "^2.2.9",
         "framer-motion": "^6.5.1",
         "i18next": "^23.2.11",
-        "leaflet": "^1.7.1",
         "lodash": "^4.17.21",
         "mongodb": "^6.8.0",
         "next": "^13.4.10",
@@ -30,7 +27,6 @@
         "react-dom": "^18.2.0",
         "react-i18next": "^13.0.2",
         "react-icons": "^4.3.1",
-        "react-leaflet": "^4.2.1",
         "react-tooltip": "^5.18.0"
     },
     "devDependencies": {
