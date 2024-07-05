@@ -25,8 +25,8 @@ export default async function memes(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
+  const { db, client } = await connectToDatabase();
   try {
-    const { db, client } = await connectToDatabase();
     const { id } = req.query as QueryParams;
 
     let result: any = {};
@@ -52,11 +52,13 @@ export default async function memes(
       else result = await db.collection("memes").find({}).toArray();
     }
 
-    await client.close();1
+    await client.close();
     
     res.setHeader("Content-Type", "application/json");
     return res.json(result);
   } catch (error) {
+    await db.collection('logs').insertOne({ message: JSON.stringify(error) });
+
     return res.json({ message: "Error searching memes" });
   }
 }

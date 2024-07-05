@@ -7,16 +7,16 @@ export default async function features(
   res: NextApiResponse<any>
 ) {
     
+const { db, client } = await connectToDatabase();
 try {
-    const { db, client } = await connectToDatabase();
     const memesCursor = db.collection("memes").find({});
     const memes = await memesCursor.toArray(); // Convert the cursor to an array
     
     const features = new Set(memes.flatMap((meme) => meme.features || [])); // Use flatMap on the array of documents
 
-    await client.close();
     return res.json(Array.from(features.values()));
   } catch (error) {
+    await db.collection('logs').insertOne({ message: JSON.stringify(error) });
     return res.json({ message: "Error getting features." });
   }
 }
