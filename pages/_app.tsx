@@ -2,7 +2,7 @@ import "../styles/globals.css";
 
 import type { AppProps } from "next/app";
 import dynamic from "next/dynamic";
-import Script from "next/script";
+import nextI18Config from '../next-i18next.config.js';
 import { appWithTranslation } from "next-i18next";
 
 const ChakraProviderWrapper = dynamic(() => import('../component/common/ChakraProviderWrapper'))
@@ -23,4 +23,5 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default appWithTranslation(MyApp, );
+
+export default appWithTranslation(MyApp, nextI18Config);
