@@ -1,12 +1,11 @@
 import "../styles/globals.css";
-
 import dynamic from "next/dynamic";
-import { ChakraProvider } from "@chakra-ui/react";
 import type { AppProps } from "next/app";
 import Script from "next/script";
 import { appWithTranslation } from "next-i18next";
 import customTheme from "../theme";
-import { FormProvider } from "../component/common/FormContext";
+const ChakraProviderWrapper = dynamic(() => import('../component/common/ChakraProviderWrapper'))
+const FormProvider = dynamic(() => import('../component/common/FormContext'))
 
 const Navbar = dynamic(() => import("../component/common/NavbarComponent"), {ssr: false});
 
@@ -29,12 +28,12 @@ function MyApp({ Component, pageProps }: AppProps) {
         `}
       </Script>
 
-      <ChakraProvider theme={customTheme}>
+      <ChakraProviderWrapper>
         <FormProvider>
           <Navbar />
           <Component {...pageProps} />
         </FormProvider>
-      </ChakraProvider>
+      </ChakraProviderWrapper>
     </>
   );
 }

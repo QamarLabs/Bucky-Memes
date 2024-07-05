@@ -40,7 +40,7 @@ export const FormContext = createContext<FormContextDefault>({
   onMemeHovered: () => (e: any) => {},
 });
 
-export const FormProvider = ({ children }: React.PropsWithChildren<any>) => {
+const FormProvider = ({ children }: React.PropsWithChildren<any>) => {
   const toast = useToast();
   const [copied, setCopied] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
@@ -130,3 +130,5 @@ export const FormProvider = ({ children }: React.PropsWithChildren<any>) => {
     </FormContext.Provider>
   );
 };
+
+export default FormProvider;
