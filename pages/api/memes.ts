@@ -55,8 +55,8 @@ export default async function memes(
     await client.close();1
     
     res.setHeader("Content-Type", "application/json");
-    res.send(result);
+    return res.json(result);
   } catch (error) {
-    res.send({ message: "Error searching memes" });
+    return res.json({ message: "Error searching memes" });
   }
 }

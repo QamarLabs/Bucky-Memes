@@ -15,9 +15,8 @@ try {
     const features = new Set(memes.flatMap((meme) => meme.features || [])); // Use flatMap on the array of documents
 
     await client.close();
-    res.send(Array.from(features.values()));
+    return res.json(Array.from(features.values()));
   } catch (error) {
-    console.log("FUCK YOU ERROR:", error);
-    res.send({ message: "Error getting features." });
+    return res.json({ message: "Error getting features." });
   }
 }
