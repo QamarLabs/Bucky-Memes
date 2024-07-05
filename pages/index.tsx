@@ -149,7 +149,7 @@ export default function Memes() {
         />
         <meta
           property="og:image"
-          content="https://xyzfqjxmadywqhwvcqxh.supabase.in/storage/v1/object/public/activities/ogFB.png"
+          content="https://res.cloudinary.com/aa1997/image/upload/v1720130151/Web3-Client-Projects/Bucky_s_Arrived.png"
           key="ogpic"
         />
       </Head>
