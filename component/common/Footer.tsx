@@ -1,4 +1,4 @@
-import { Box, Image, Flex, Text } from '@chakra-ui/react';
+import { Box, Flex, Image } from '@chakra-ui/react';
 
 const FooterNote = () => (
     <div className="font-body text-xs" >

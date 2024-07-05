@@ -6,6 +6,7 @@ import {
   Center,
   Flex,
   IconButton,
+  Image,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -15,7 +16,6 @@ import {
   ModalOverlay,
   Spacer,
   useDisclosure,
-  Image,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";

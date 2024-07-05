@@ -2,32 +2,31 @@ import {
   Badge,
   Box,
   CircularProgress,
-  Divider,
   Flex,
   Icon,
   Input,
   InputGroup,
   InputLeftElement,
-  Link as ChakraLink,
 } from "@chakra-ui/react";
 import { GetStaticPropsContext } from "next";
 import { useRouter } from "next/dist/client/router";
+import dynamic from "next/dynamic";
 import Head from "next/head";
 import NextImage from "next/legacy/image";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import React, { useCallback, useEffect, useState } from "react";
-import { BsMap, BsSearch } from "react-icons/bs";
-import dynamic from "next/dynamic";
+import { BsSearch } from "react-icons/bs";
 
 const MemeList = dynamic(() => import("../component/MemeList"), {ssr: false });
 const SizeSlider = dynamic(() => import("../component/common/SizeSlider"), {ssr: false });
 
+import { SmallCloseIcon } from "@chakra-ui/icons";
+
 import { Locale } from "../component/common/NavbarComponent";
 import fetchFeatures from "../services/fetchFeatures";
 import { fetchMemes } from "../services/fetchMemes";
-import { SmallCloseIcon } from "@chakra-ui/icons";
 
 
 export default function Memes() {

@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
+
 import { connectToDatabase } from "../../helpers/mongoDbClient";
 
 export default async function features(

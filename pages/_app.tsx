@@ -1,9 +1,10 @@
 import "../styles/globals.css";
-import dynamic from "next/dynamic";
+
 import type { AppProps } from "next/app";
+import dynamic from "next/dynamic";
 import Script from "next/script";
 import { appWithTranslation } from "next-i18next";
-import customTheme from "../theme";
+
 const ChakraProviderWrapper = dynamic(() => import('../component/common/ChakraProviderWrapper'))
 const FormProvider = dynamic(() => import('../component/common/FormContext'))
 
@@ -38,4 +39,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default appWithTranslation(MyApp);
+export default appWithTranslation(MyApp, );

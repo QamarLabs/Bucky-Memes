@@ -1,14 +1,15 @@
 "use cllent";
-import dynamic from "next/dynamic";
-import { Locale } from "./common/NavbarComponent";
 import { Box, Center } from "@chakra-ui/react";
+import dynamic from "next/dynamic";
+
+import { Locale } from "./common/NavbarComponent";
 const NewsletterComponent = dynamic(
   () => import("./common/NewsletterComponent"),
   { ssr: false }
 );
 
-import Newsletter  from "./Newsletter";
 import MemeCard from "./common/MemeCard";
+import Newsletter  from "./Newsletter";
 
 const MemeList = (props: { memes: any; locale: Locale }) => {
   if (!props.memes?.length) {

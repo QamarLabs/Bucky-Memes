@@ -1,7 +1,8 @@
 "use client";
-import { Box, RangeSlider, RangeSliderTrack, RangeSliderFilledTrack, RangeSliderThumb, Tooltip } from '@chakra-ui/react';
-import { FormContext } from './FormContext';
+import { Box, RangeSlider, RangeSliderFilledTrack, RangeSliderThumb, RangeSliderTrack, Tooltip } from '@chakra-ui/react';
 import { useContext } from 'react';
+
+import { FormContext } from './FormContext';
 
 const SizeSlider = () => {
   const { handleSizeImage, currentMinMax } = useContext(FormContext);

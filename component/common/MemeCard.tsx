@@ -1,16 +1,14 @@
 import {
-  Link as ChakraLink,
   Box,
-  Badge,
   Button,
   CircularProgress,
 } from "@chakra-ui/react";
-import { Locale } from "./NavbarComponent";
-import Link from "next/link";
 import NextImage from "next/image";
-import { BsCheck, BsClipboard, BsDownload } from "react-icons/bs";
 import { useContext, useMemo, useState } from "react";
+import { BsCheck, BsClipboard, BsDownload } from "react-icons/bs";
+
 import { FormContext } from "./FormContext";
+import { Locale } from "./NavbarComponent";
 
 const MAX_DESCRIPTION_LENGTH = 250;
 

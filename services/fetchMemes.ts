@@ -28,7 +28,7 @@ export async function fetchMemes(
             body: JSON.stringify(searchParams)
         }
 
-    const memesResponse = await fetch(apiUrl, opts);
+    const memesResponse = await fetch("/api/memes", opts);
 
     return await memesResponse.json();
 }
