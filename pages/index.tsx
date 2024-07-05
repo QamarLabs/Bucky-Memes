@@ -14,8 +14,6 @@ import dynamic from "next/dynamic";
 import Head from "next/head";
 import NextImage from "next/legacy/image";
 import Link from "next/link";
-import { useTranslation } from "next-i18next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import React, { useCallback, useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 
@@ -49,8 +47,6 @@ export default function Memes() {
   }, []);
 
   const [locale] = useState(router.locale as Locale);
-
-  const { t } = useTranslation("common");
 
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
@@ -140,15 +136,15 @@ export default function Memes() {
   return (
     <>
       <Head>
-        <title>{t("documentTitle.index")}</title>
+        <title>$Bucky Memes</title>
         <meta
           property="og:title"
-          content={t("documentTitle.index")}
+          content={"$Bucky Memes"}
           key="ogtitle"
         />
         <meta
           property="og:description"
-          content={t("ogDescription")}
+          content={"BUCKY is a crypto that supports  the memes."}
           key="ogdesc"
         />
         <meta
@@ -171,7 +167,7 @@ export default function Memes() {
               fontSize="30px"
               onChange={paramHandler("query")}
               fontFamily={'body'}
-              placeholder={t("searchActivity")}
+              placeholder="Search Bucky's"
               variant="md"
             />
           </InputGroup>
@@ -273,11 +269,11 @@ export default function Memes() {
   );
 }
 
-export async function getStaticProps({ locale }: GetStaticPropsContext) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale as Locale, ["common"])),
-    },
-    revalidate: 30,
-  };
-}
+// export async function getStaticProps({ locale }: GetStaticPropsContext) {
+//   return {
+//     props: {
+//       ...(await serverSideTranslations(locale as Locale, ["common"])),
+//     },
+//     revalidate: 30,
+//   };
+// }

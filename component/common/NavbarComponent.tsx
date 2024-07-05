@@ -19,7 +19,6 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useTranslation } from "next-i18next";
 import { useState } from "react";
 
 export type Locale = "en" | "fr";
@@ -28,7 +27,6 @@ const NavbarComponent = () => {
   const router = useRouter();
   const [locale, setLocale] = useState(router.locale as Locale);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { t } = useTranslation("common");
 
   const changeLocale = (value: Locale) => {
     setLocale(value);
@@ -79,7 +77,7 @@ const NavbarComponent = () => {
               variant="ghost"
               onClick={onOpen}
             >
-              {t("whatIsBucky")}
+              What is Bucky?
             </Button>
 
             <IconButton
@@ -97,15 +95,12 @@ const NavbarComponent = () => {
         <Modal size="lg" isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent>
-            <ModalHeader>{t("whatIsBuckyModal.welcome")}</ModalHeader>
+            <ModalHeader>Welcome to success!</ModalHeader>
             <ModalCloseButton />
             <ModalBody whiteSpace="pre-line">
               <Flex mb="20px">
                 <Center w="100%">
-                  <a
-                    href="https://buckyonsol.com/"
-                    title="Bucky on Sol"
-                  >
+                  <a href="https://buckyonsol.com/" title="Bucky on Sol">
                     <Avatar
                       size="2xl"
                       name="Bucky"
@@ -116,30 +111,18 @@ const NavbarComponent = () => {
               </Flex>
               <div
                 dangerouslySetInnerHTML={{
-                  __html: t("whatIsBuckyModal.text"),
+                  __html:
+                    "This token empowers meme creators & celebrates internet culture. Very fun meme token project, Zero tax, pure simplicity, growing stronger by the day.<br /><br />We’re here to add a splash of color to the blockchain scene and create memorable experiences for our community. Share positive vibes, and ride the crypto wave together. Zero taxes, LP burnt, and contract renounced.",
                 }}
               />
             </ModalBody>
             <ModalFooter>
               <Button onClick={onClose} variant="ghost">
-                {t("whatIsBuckyModal.endText")}
+                Keep it up!
               </Button>
             </ModalFooter>
           </ModalContent>
         </Modal>
-      </Center>
-      <Center cursor="pointer" mr="10px">
-        {(["en", "fr"] as Locale[]).map((language: Locale) => (
-          <Button
-            key={language}
-            ml="5px"
-            onClick={() => changeLocale(language)}
-            colorScheme="solid"
-            variant={locale === language ? "solid" : "outline"}
-          >
-            {language.toUpperCase()}
-          </Button>
-        ))}
       </Center>
     </Flex>
   );
