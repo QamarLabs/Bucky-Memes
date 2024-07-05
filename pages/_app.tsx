@@ -2,7 +2,6 @@ import "../styles/globals.css";
 
 import dynamic from "next/dynamic";
 import { ChakraProvider } from "@chakra-ui/react";
-import { Analytics } from "@vercel/analytics/react";
 import type { AppProps } from "next/app";
 import Script from "next/script";
 import { appWithTranslation } from "next-i18next";
@@ -34,7 +33,6 @@ function MyApp({ Component, pageProps }: AppProps) {
         <FormProvider>
           <Navbar />
           <Component {...pageProps} />
-          <Analytics />
         </FormProvider>
       </ChakraProvider>
     </>
