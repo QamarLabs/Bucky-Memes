@@ -1,0 +1,29 @@
+{
+    "searchActivity": "Search Bucky's",
+    "documentTitle": {
+      "index": "$Bucky Memes"
+    },
+    "by": "by",
+    "whatIsBucky": "What is Bucky?",
+    "whatIsBuckyModal": {
+      "text": "This token empowers meme creators & celebrates internet culture. Very fun meme token project, Zero tax, pure simplicity, growing stronger by the day.<br /><br />We’re here to add a splash of color to the blockchain scene and create memorable experiences for our community. Share positive vibes, and ride the crypto wave together. Zero taxes, LP burnt, and contract renounced.",
+      "endText": "Keep it up!",
+      "welcome": "Welcome to success!"
+    },
+    "ogDescription": "BUCKY is a crypto that supports  the memes.",
+    "noMemesFound": "There are no memes that match these criteria at the moment. Would you like to subscribe to our newsletter to be kept informed?",
+    "noMemesMatching": "Can find any memes? You can subscribe to our newsletter to be informed of our latest memes!",
+    "newsletter": {
+      "email": "Your email",
+      "submit": "Subscribe",
+      "title": {
+        "success": "Thanks for subscribing!",
+        "error": "The subscription failed. Please try again."
+      },
+      "description": {
+        "success": "We'll keep you in touch for any new activities.",
+        "error": "Please send an email to bucky@website is the issue persists."
+      }
+    }
+  }
+  

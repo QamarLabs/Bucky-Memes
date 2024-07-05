@@ -1,0 +1,28 @@
+{
+    "searchActivity": "Rechercher chez Bucky's",
+    "documentTitle": {
+      "index": "$Bucky Memes"
+    },
+    "by": "par",
+    "whatIsBucky": "Qu'est-ce que Bucky?",
+    "whatIsBuckyModal": {
+      "text": "Ce token donne du pouvoir aux créateurs de mèmes et célèbre la culture internet. Projet de token mème très amusant, zéro taxe, pure simplicité, se renforce de jour en jour.<br /><br />Nous sommes ici pour ajouter une touche de couleur à la scène blockchain et créer des expériences mémorables pour notre communauté. Partagez des ondes positives et surfez ensemble sur la vague crypto. Zéro taxes, LP brûlé, et contrat renoncé.",
+      "endText": "Continuez comme ça!",
+      "welcome": "Bienvenue au succès!"
+    },
+    "ogDescription": "BUCKY est une crypto qui soutient les mèmes.",
+    "noMemesFound": "Il n'y a pas de mèmes correspondant à ces critères pour le moment. Souhaitez-vous vous abonner à notre newsletter pour rester informé?",
+    "noMemesMatching": "Vous ne trouvez pas de mèmes? Vous pouvez vous abonner à notre newsletter pour être informé de nos derniers mèmes!",
+    "newsletter": {
+      "email": "Votre email",
+      "submit": "S'abonner",
+      "title": {
+        "success": "Merci pour votre abonnement!",
+        "error": "L'abonnement a échoué. Veuillez réessayer."
+      },
+      "description": {
+        "success": "Nous vous tiendrons informé de toute nouvelle activité.",
+        "error": "Veuillez envoyer un email à bucky@website si le problème persiste."
+      }
+    }
+  }

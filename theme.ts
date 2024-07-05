@@ -1,0 +1,79 @@
+import { extendTheme, ThemeConfig } from "@chakra-ui/react";
+
+const customTheme: ThemeConfig = extendTheme({
+  fonts: {
+    heading: `"Montserrat", sans-serif;`,
+    body: `"Montserrat", sans-serif;`,
+  },
+  colors: {
+    buttonText: "#ffffff",
+    buckyGoldOne: "#F3CE04",
+    buckyGoldTwo: "#FFA500",
+    buckyBoxShadow: "rgba(255, 165, 0, 0.75)",
+    bg: "#333",
+  },
+  components: {
+    // You can extend or override default component styles here
+    Button: {
+      // Extend the default Button component styles
+      baseStyle: {
+        fontWeight: "bold",
+        color: "buttonText",
+        _hover: {
+          boxShadow: "0 4px 8px buckyBoxShadow",
+        },
+      },
+      variants: {
+        solid: {
+          bg: "buckyGoldOne",
+          _hover: {
+            bg: "buckyGoldTwo",
+          },
+        },
+        ghost: {
+          bg: "transparent",
+          color: "buckyGoldTwo",
+          _hover: {
+            bg: "#333",
+            color: "buckyGoldOne",
+          },
+        },
+      },
+    },
+    Badge: {
+      baseStyle: {
+        fontWeight: "bold",
+        color: "buckyGoldTwo",
+        borderColor: "buckyGoldTwo",
+        _hover: {
+          boxShadow: "0 4px 8px buckyBoxShadow",
+        },
+      },
+      variants: {
+        ghost: {
+          bg: "white",
+        },
+        solid: {
+          color: 'white',
+          bg: "buckyGoldOne",
+        },
+
+      },
+    },
+  },
+  Flex: {
+    // Extend the default Button component styles
+    baseStyle: {
+      bgColor: '#333'
+    },
+  },
+  Box: {
+    // Extend the default Button component styles
+    baseStyle: {
+      bgColor: '#333'
+    },
+  }
+  // Add other theme customizations like breakpoints, fonts, etc.
+});
+
+export default customTheme;
