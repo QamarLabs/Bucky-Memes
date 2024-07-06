@@ -54,12 +54,13 @@ const MemeCard = ({ meme, locale }: MemeCardProps) => {
       boxShadow="lg"
       cursor="pointer"
       display="inline-block"
-      margin="5px"
+      margin={{ base: '5px', xl: '5px'}}
       overflow="hidden"
       role="group"
       textAlign="left"
       bg='rgb(12, 12, 12)'
       width={width}
+      mx={{ base: 'auto', sm: 'initial' }}
       _hover={{
         transform: "scale(1.05)",
       }}

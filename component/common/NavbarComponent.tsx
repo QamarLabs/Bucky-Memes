@@ -81,7 +81,7 @@ const NavbarComponent = () => {
 
       <Center>
         <Flex margin={{ base: '0px 0px 0px 0px', md: "10px 0px 10px 10px"}}>
-          <InputGroup minWidth={{ base: 'initial', md: '400px'}}>
+          <InputGroup minWidth={{ base: 'initial', sm: '300px', md: '400px'}}>
             <InputLeftElement
               pointerEvents="none"
               children={<Icon fontSize={{ base: '10px', md: '16px', lg: "20px"}} as={BsSearch} color="white" />}

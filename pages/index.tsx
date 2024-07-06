@@ -133,7 +133,7 @@ export default function Memes() {
           key="ogpic"
         />
       </Head>
-      <Box bg='rgb(12, 12, 12)' className="memes-list" width={{ base: "90%", lg: "95%" }}>
+      <Box bg='rgb(12, 12, 12)' className="memes-list" width={{ base: "100%", xl: "95%" }}>
         <Box className="filters">
           <Box
             mb="20px"
