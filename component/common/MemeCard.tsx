@@ -1,14 +1,11 @@
-import {
-  Box,
-  Button,
-  CircularProgress,
-} from "@chakra-ui/react";
+import { Box, Button, CircularProgress } from "@chakra-ui/react";
 import NextImage from "next/image";
 import { useContext, useMemo, useState } from "react";
 import { BsCheck, BsClipboard, BsDownload } from "react-icons/bs";
 
 import { FormContext } from "./FormContext";
 import { Locale } from "./NavbarComponent";
+import {CustomImageLoader} from "./CustomLoader";
 
 const MAX_DESCRIPTION_LENGTH = 250;
 
@@ -54,31 +51,39 @@ const MemeCard = ({ meme, locale }: MemeCardProps) => {
       boxShadow="lg"
       cursor="pointer"
       display="inline-block"
-      margin={{ base: '5px', xl: '5px'}}
+      margin={{ base: "5px", xl: "5px" }}
       overflow="hidden"
       role="group"
       textAlign="left"
-      bg='rgb(12, 12, 12)'
+      bg="rgb(12, 12, 12)"
       width={width}
-      mx={{ base: 'auto', sm: 'initial' }}
+      mx={{ base: "auto", sm: "initial" }}
       _hover={{
         transform: "scale(1.05)",
       }}
     >
       <Box width="100%" minHeight={imageHeight} position="relative">
         {loadingImg ? (
-          <CircularProgress isIndeterminate color="buckyGoldOne" />
+          <CircularProgress as={CustomImageLoader} isIndeterminate color="buckyGoldOne" />
         ) : null}
         <NextImage
           fill={true}
           alt={meme.cloudinaryUrl}
           src={meme.cloudinaryUrl}
-          sizes="100%"
+          sizes="(max-width: 800px) 100vw, (max-width: 1200px) 50vw, 33vw"
           loader={() => meme.cloudinaryUrl}
           onLoadingComplete={() => setLoadingImg(false)}
         />
       </Box>
-      <Box minHeight="0px" px="5" py="1" fontSize={{ base: "1.75rem", md: "1.1rem", lg: "1rem"}} color='white' fontFamily="autography" whiteSpace='nowrap'>
+      <Box
+        minHeight="0px"
+        px="5"
+        py="1"
+        fontSize={{ base: "1.75rem", md: "1.1rem", lg: "1rem" }}
+        color="white"
+        fontFamily="autography"
+        whiteSpace="nowrap"
+      >
         <p>{meme.name}</p>
       </Box>
       <Box minHeight="0px" px="5" py="2" display="flex">
@@ -87,7 +92,7 @@ const MemeCard = ({ meme, locale }: MemeCardProps) => {
           size={iconSize}
           mr="10px"
           type="button"
-          borderRadius={'0'}
+          borderRadius={"0"}
         >
           {!copied ? <BsClipboard /> : <BsCheck />}
         </Button>
@@ -96,7 +101,7 @@ const MemeCard = ({ meme, locale }: MemeCardProps) => {
           onClick={downloadImage(meme.cloudinaryUrl, meme.name)}
           size={iconSize}
           type="button"
-          borderRadius={'0'}
+          borderRadius={"0"}
         >
           {!downloaded ? <BsDownload /> : <BsCheck />}
         </Button>

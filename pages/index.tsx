@@ -1,8 +1,4 @@
-import {
-  Badge,
-  Box,
-  CircularProgress,
-} from "@chakra-ui/react";
+import { Badge, Box, CircularProgress } from "@chakra-ui/react";
 import { useRouter } from "next/dist/client/router";
 import dynamic from "next/dynamic";
 import Head from "next/head";
@@ -10,7 +6,7 @@ import NextImage from "next/legacy/image";
 import Link from "next/link";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 
-const MemeList = dynamic(() => import("../component/MemeList"), {ssr: false });
+const MemeList = dynamic(() => import("../component/MemeList"), { ssr: false });
 
 import { SmallCloseIcon } from "@chakra-ui/icons";
 
@@ -18,7 +14,7 @@ import { FormContext } from "../component/common/FormContext";
 import { Locale } from "../component/common/NavbarComponent";
 import fetchFeatures from "../services/fetchFeatures";
 import { fetchMemes } from "../services/fetchMemes";
-
+import { CustomPageLoader } from "../component/common/CustomLoader";
 
 export default function Memes() {
   const [isLoading, setIsLoading] = useState(true);
@@ -117,11 +113,7 @@ export default function Memes() {
     <>
       <Head>
         <title>$Bucky Memes</title>
-        <meta
-          property="og:title"
-          content={"$Bucky Memes"}
-          key="ogtitle"
-        />
+        <meta property="og:title" content={"$Bucky Memes"} key="ogtitle" />
         <meta
           property="og:description"
           content={"BUCKY is a crypto that supports  the memes."}
@@ -133,7 +125,11 @@ export default function Memes() {
           key="ogpic"
         />
       </Head>
-      <Box bg='rgb(12, 12, 12)' className="memes-list" width={{ base: "100%", xl: "95%" }}>
+      <Box
+        bg="rgb(12, 12, 12)"
+        className="memes-list"
+        width={{ base: "100%", xl: "95%" }}
+      >
         <Box className="filters">
           <Box
             mb="20px"
@@ -205,26 +201,26 @@ export default function Memes() {
                 ))}
             </Box>
           </Box>
-          {/* <SizeSlider /> */}
         </Box>
         <Box h="100vh" padding="15px">
           {isLoading ? (
             <Box textAlign="center">
-              <CircularProgress isIndeterminate color="buckyGoldOne" />
+              <CircularProgress
+                as={CustomPageLoader}
+                isIndeterminate
+                color="buckyGoldOne"
+              />
             </Box>
           ) : (
             <MemeList memes={memes} locale="en" />
           )}
         </Box>
       </Box>
-      <Link
-        href={"https://buckyonsol.com/"}
-        target="_blank"
-      >
+      <Link href={"https://buckyonsol.com/"} target="_blank">
         <Box className="floating-button">
           <NextImage
             layout="fill"
-            style={{transform: 'scale(0.8)'}}
+            style={{ transform: "scale(0.8)" }}
             src="/navigate-bucky.svg"
             alt="Navigate to Bucky on Sol"
           />
@@ -233,12 +229,3 @@ export default function Memes() {
     </>
   );
 }
-
-// export async function getStaticProps({ locale }: GetStaticPropsContext) {
-//   return {
-//     props: {
-//       ...(await serverSideTranslations(locale as Locale, ["common"])),
-//     },
-//     revalidate: 30,
-//   };
-// }

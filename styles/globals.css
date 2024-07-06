@@ -4,7 +4,7 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-    background-color: rgb(12, 12, 12);
+  background-color: rgb(12, 12, 12);
 }
 
 #__next {
@@ -21,18 +21,8 @@ body {
   font-optical-sizing: auto;
   font-weight: 100 !important;
   font-style: normal;
-  font-variation-settings:
-    "slnt" 0,
-    "wdth" 100,
-    "GRAD" 0,
-    "XOPQ" 96,
-    "XTRA" 468,
-    "YOPQ" 79,
-    "YTAS" 750,
-    "YTDE" -203,
-    "YTFI" 738,
-    "YTLC" 514,
-    "YTUC" 712;
+  font-variation-settings: "slnt" 0, "wdth" 100, "GRAD" 0, "XOPQ" 96, "XTRA" 468,
+    "YOPQ" 79, "YTAS" 750, "YTDE" -203, "YTFI" 738, "YTLC" 514, "YTUC" 712;
 }
 
 a {
@@ -47,7 +37,6 @@ a {
 .search-bar {
   width: 93% !important;
   background-color: rgb(12, 12, 12);
-
 }
 
 .activity-flex {
@@ -95,57 +84,6 @@ a {
 
 .help-button-mobile {
   display: none !important;
-}
-
-@media screen and (max-width: 1000px) {
-  .floating-button {
-    width: 50px;
-    height: 50px;
-    font-size: 28px;
-  }
-
-  .activity-flex {
-    display: inline !important;
-  }
-
-  .filters {
-    display: inline !important;
-  }
-
-  .sliderFilter {
-    margin-top: 10px;
-    margin-left: 17%;
-    width: 65%;
-  }
-
-  .memes-list {
-    text-align: center !important;
-  }
-
-  .search-bar {
-    width: 90% !important;
-  }
-
-  .detail-map {
-    height: 30vh !important;
-  }
-  .map {
-    height: 110vh !important;
-  }
-
-  .activity-description {
-    padding: 7%;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  .help-button-desktop {
-    display: none !important;
-  }
-
-  .help-button-mobile {
-    display: block !important;
-  }
 }
 
 .timeline {
@@ -252,4 +190,184 @@ a {
 /* setting dot to the right if the card is odd */
 .card:nth-child(even) > .info > .title::before {
   right: -45px;
+}
+
+/*Crypto Coin Loader*/
+
+.crypto-coin-loader {
+  position: relative;
+  height: 7.5rem;
+  width: 7.5rem;
+}
+
+.crypto-coin-loader:before {
+  content: "";
+  position: absolute;
+  background-image: url("/bucky-coin.svg");
+  background-position: center;
+  background-size: cover;
+  background-color: white;
+  box-shadow: 0 0 120px #ffa500;
+  border-radius: 50%;
+  transition: 0.25s;
+  left: 50%;
+  transform: rotateY(45deg) translate(-50%, 50%);
+  height: 100%;
+  width: 100%;
+  animation: move-crypto 1.5s infinite alternate;
+}
+
+@keyframes move-crypto {
+  0% {
+    top: 10%;
+    transform: rotateY(45deg);
+  }
+  100% {
+    top: 45%;
+    transform: rotateY(-45deg);
+  }
+}
+
+/* Page Loader */
+#page-loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  font-style: italic;
+  font-family: "Roboto Flex", sans-serif;
+}
+
+.wave {
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+
+.wave h2 {
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  text-align: center;
+  line-height: 300px;
+  font-size: 100px;
+  text-transform: uppercase;
+}
+
+.wave h2:nth-child(1) {
+  color: transparent;
+  -webkit-text-stroke: 2px #ffa500;
+}
+
+.wave h2:nth-child(2) {
+  color: #f3ce04;
+  /*   clip-path: polygon(0 50%, 100% 50%, 100% 0, 0 0); */
+  animation: wave 2s ease-in-out infinite;
+}
+
+@keyframes wave {
+  0% {
+    clip-path: polygon(
+      0% 38%,
+      21% 40%,
+      38% 51%,
+      54% 57%,
+      75% 57%,
+      100% 52%,
+      100% 100%,
+      0 100%
+    );
+  }
+  50% {
+    clip-path: polygon(
+      0% 49%,
+      16% 56%,
+      33% 55%,
+      55% 50%,
+      75% 42%,
+      100% 40%,
+      100% 100%,
+      0 100%
+    );
+  }
+  100% {
+    clip-path: polygon(
+      0% 38%,
+      21% 40%,
+      38% 51%,
+      54% 57%,
+      75% 57%,
+      100% 52%,
+      100% 100%,
+      0 100%
+    );
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .floating-button {
+    width: 50px;
+    height: 50px;
+    font-size: 28px;
+  }
+
+  .activity-flex {
+    display: inline !important;
+  }
+
+  .filters {
+    display: inline !important;
+  }
+
+  .sliderFilter {
+    margin-top: 10px;
+    margin-left: 17%;
+    width: 65%;
+  }
+
+  .memes-list {
+    text-align: center !important;
+  }
+
+  .search-bar {
+    width: 90% !important;
+  }
+
+  .detail-map {
+    height: 30vh !important;
+  }
+  .map {
+    height: 110vh !important;
+  }
+
+  .activity-description {
+    padding: 7%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .help-button-desktop {
+    display: none !important;
+  }
+
+  .help-button-mobile {
+    display: block !important;
+  }
+
+  .wave {
+    width: 200px;
+    height: 200px;
+  }
+
+  .wave h2 {
+    line-height: 200px;
+    font-size: 75px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .wave h2 {
+    font-size: 50px;
+  }
 }
