@@ -10,7 +10,7 @@ const customTheme: ThemeConfig = extendTheme({
     buckyGoldOne: "#F3CE04",
     buckyGoldTwo: "#FFA500",
     buckyBoxShadow: "rgba(255, 165, 0, 0.75)",
-    bg: "#333",
+    bg: "rgb(12, 12, 12)",
   },
   components: {
     // You can extend or override default component styles here
@@ -32,10 +32,10 @@ const customTheme: ThemeConfig = extendTheme({
         },
         ghost: {
           bg: "transparent",
-          color: "buckyGoldTwo",
+          color: "#333",
           _hover: {
-            bg: "#333",
-            color: "buckyGoldOne",
+            bg: "buckyGoldOne",
+            color: "white",
           },
         },
       },

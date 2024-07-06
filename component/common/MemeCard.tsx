@@ -50,7 +50,7 @@ const MemeCard = ({ meme, locale }: MemeCardProps) => {
       key={meme.slug}
       borderRadius="lg"
       borderWidth="1px"
-      borderColor="#333"
+      borderColor="rgb(12, 12, 12)"
       boxShadow="lg"
       cursor="pointer"
       display="inline-block"
@@ -58,7 +58,7 @@ const MemeCard = ({ meme, locale }: MemeCardProps) => {
       overflow="hidden"
       role="group"
       textAlign="left"
-      bg="#333"
+      bg='rgb(12, 12, 12)'
       width={width}
       _hover={{
         transform: "scale(1.05)",
@@ -72,6 +72,7 @@ const MemeCard = ({ meme, locale }: MemeCardProps) => {
           fill={true}
           alt={meme.cloudinaryUrl}
           src={meme.cloudinaryUrl}
+          sizes="100%"
           loader={() => meme.cloudinaryUrl}
           onLoadingComplete={() => setLoadingImg(false)}
         />

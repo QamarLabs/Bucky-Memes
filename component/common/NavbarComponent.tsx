@@ -5,8 +5,12 @@ import {
   Button,
   Center,
   Flex,
+  Icon,
   IconButton,
   Image,
+  Input,
+  InputGroup,
+  InputLeftElement,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -19,29 +23,34 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useCallback, useContext, useState } from "react";
+import { BsSearch } from "react-icons/bs";
+import { FormContext } from "./FormContext";
 
 export type Locale = "en" | "fr";
 
 const NavbarComponent = () => {
   const router = useRouter();
-  const [locale, setLocale] = useState(router.locale as Locale);
+  // const [locale, setLocale] = useState(router.locale as Locale);
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const changeLocale = (value: Locale) => {
-    setLocale(value);
-    router.push(
-      {
-        pathname: router.pathname,
-        query: { ...router.query },
-      },
-      undefined,
-      {
-        locale: value,
-        scroll: false,
-      }
-    );
-  };
+  const { setSearchQuery, searchQry } = useContext(FormContext);
+  // const changeLocale = (value: Locale) => {
+  //   setLocale(value);
+  //   router.push(
+  //     {
+  //       pathname: router.pathname,
+  //       query: { ...router.query },
+  //     },
+  //     undefined,
+  //     {
+  //       locale: value,
+  //       scroll: false,
+  //     }
+  //   );
+  // };
+  const handleSearchChange = useCallback((e: any) => {
+    setSearchQuery(e.target.value);
+  }, [])
 
   return (
     <Flex
@@ -52,6 +61,7 @@ const NavbarComponent = () => {
       top="0"
       zIndex="100"
       h="60px"
+      bg="#FACD00"
     >
       <Center p="10px">
         <Box w="100%" h="100%">
@@ -68,14 +78,39 @@ const NavbarComponent = () => {
         </Box>
       </Center>
       <Spacer />
+
+      <Center>
+        <Flex margin="10px 0px 10px 10px">
+          <InputGroup>
+            <InputLeftElement
+              pointerEvents="none"
+              children={<Icon fontSize="20px" as={BsSearch} color="white" />}
+            />
+            <Input
+              className="search-bar"
+              color="white"
+              defaultValue={router.query.query}
+              value={searchQry}
+              onChange={handleSearchChange}
+              fontSize={{ base: "14px", lg: "30px" }}
+              fontFamily={"body"}
+              fontWeight="200"
+              placeholder="Search Bucky's"
+              variant="md"
+            />
+          </InputGroup>
+        </Flex>
+      </Center>
+      <Spacer />
+
       <Center>
         {!router.pathname.includes("trip") && (
           <>
             <Button
               className="help-button-desktop"
-              colorScheme="teal"
               variant="ghost"
               onClick={onOpen}
+              mr="1"
             >
               What is Bucky?
             </Button>
@@ -84,7 +119,7 @@ const NavbarComponent = () => {
               p="0px 15px 5px 0px"
               className="help-button-mobile"
               onClick={onOpen}
-              fontSize="30px"
+              fontSize={"30px"}
               variant="ghost"
               colorScheme="teal"
               aria-label="get info"

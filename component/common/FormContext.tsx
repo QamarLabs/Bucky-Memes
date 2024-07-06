@@ -1,5 +1,6 @@
 // context/UserContext.js
-import { useToast } from "@chakra-ui/react";
+import { useMediaQuery, useToast } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import React, { createContext, useCallback, useState } from "react";
 
 interface FormContextDefault {
@@ -8,7 +9,8 @@ interface FormContextDefault {
   copied: boolean;
   downloaded: boolean;
   copyImageToClipboard: (
-    url: string, name: string
+    url: string,
+    name: string
   ) => (event: React.MouseEvent<HTMLButtonElement>) => Promise<(e: any) => any>;
   downloadImage: (
     url: string,
@@ -16,15 +18,18 @@ interface FormContextDefault {
   ) => (event: React.MouseEvent<HTMLButtonElement>) => Promise<(e: any) => any>;
   memeHovered: boolean;
   onMemeHovered: () => (e: any) => void;
+  setSearchQuery: (val: string) => void;
+  searchQry: string;
 }
 
-export const FormContext = createContext<FormContextDefault>({
+const defaultValues = {
   currentMinMax: [0, 50],
   handleSizeImage: (val: number[]) => {},
   copied: false,
   downloaded: false,
   copyImageToClipboard:
-    (url: string, name: string) => async (event: React.MouseEvent<HTMLButtonElement>) => {
+    (url: string, name: string) =>
+    async (event: React.MouseEvent<HTMLButtonElement>) => {
       event.stopPropagation();
       console.log("Copying image to clipboard from URL:", url);
       return Promise.resolve((e: any) => e.stopPropagation());
@@ -38,7 +43,11 @@ export const FormContext = createContext<FormContextDefault>({
     },
   memeHovered: false,
   onMemeHovered: () => (e: any) => {},
-});
+  setSearchQuery: (val: string) => {},
+  searchQry: "",
+};
+
+export const FormContext = createContext<FormContextDefault>(defaultValues);
 
 const FormProvider = ({ children }: React.PropsWithChildren<any>) => {
   const toast = useToast();
@@ -46,35 +55,45 @@ const FormProvider = ({ children }: React.PropsWithChildren<any>) => {
   const [downloaded, setDownloaded] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [currentMinMax, setCurrentMinMax] = useState<number[]>([0, 50]);
+  const [query, setQuery] = useState<string>("");
+  const [isMobile] = useMediaQuery('(max-width: 1000px)')
+
   const handleSizeImage = useCallback(
     (minMaxScale: number[]) => setCurrentMinMax(minMaxScale),
     []
   );
 
   const copyImageToClipboard = useCallback(
-    (url: string, name: string) => async (event: React.MouseEvent<HTMLButtonElement>) => {
-      event.stopPropagation();
-      try {
-        const response = await fetch(url);
-        const blob = await response.blob();
-        const item = new ClipboardItem({ [blob.type]: blob });
-        await navigator.clipboard.write([item]);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 3000);
-        toast({
-          description: `Copied ${name}!`,
-          status: 'success',
-          duration: 2000,
-          isClosable: true,
-          position: 'top'
-        })
-      } catch (error) {
-        console.error("Failed to copy image: ", error);
-        alert("Failed to copy image");
-      }
+    (url: string, name: string) =>
+      async (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.stopPropagation();
+        alert(isMobile);
+        try {
+          setCopied(true);
+          if(isMobile) {
+            await navigator.clipboard.writeText(url);
+            window.open(url, "_blank")?.focus();
+          } else {
+            const response = await fetch(url);
+            const blob = await response.blob();
+            const item = new ClipboardItem({ [blob.type]: blob });
+            await navigator.clipboard.write([item]);
+          }
+          setTimeout(() => setCopied(false), 3000);
+          toast({
+            description: `Copied ${name}!`,
+            status: "success",
+            duration: 2000,
+            isClosable: true,
+            position: "top",
+          });
+        } catch (error) {
+          console.error("Failed to copy image: ", error);
+          alert("Failed to copy image");
+        }
 
-      return (e: any) => e.stopPropagation();
-    },
+        return (e: any) => e.stopPropagation();
+      },
     []
   );
 
@@ -85,22 +104,35 @@ const FormProvider = ({ children }: React.PropsWithChildren<any>) => {
         try {
           const response = await fetch(url);
           const blob = await response.blob();
-          const blobUrl = URL.createObjectURL(blob);
-          const link = document.createElement("a");
-          link.href = blobUrl;
-          link.download = name; // specify the desired file name
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-          URL.revokeObjectURL(blobUrl); // Clean up the object URL
+
+          if (isMobile) {
+            const file = new File([blob], "yourImageFileName.jpg", {
+              type: blob.type,
+            });
+            if (navigator.canShare({ files: [file] }))
+              await navigator.share({
+                files: [file],
+                title: "Download Image",
+                text: `Download ${name}!`,
+              });
+          } else {
+            const blobUrl = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = blobUrl;
+            link.download = name; // specify the desired file name
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(blobUrl); // Clean up the object URL
+          }
           setTimeout(() => setDownloaded(false), 3000);
           toast({
             description: `Downloaded ${name}!`,
-            status: 'success',
+            status: "success",
             duration: 2000,
             isClosable: true,
-            position: 'top'
-          })
+            position: "top",
+          });
         } catch (error) {
           console.error("Failed to download image: ", error);
           alert("Failed to download image");
@@ -124,6 +156,8 @@ const FormProvider = ({ children }: React.PropsWithChildren<any>) => {
         downloadImage,
         memeHovered: hovered,
         onMemeHovered,
+        setSearchQuery: (val: string) => setQuery(val),
+        searchQry: query,
       }}
     >
       {children}

@@ -2,26 +2,19 @@ import {
   Badge,
   Box,
   CircularProgress,
-  Flex,
-  Icon,
-  Input,
-  InputGroup,
-  InputLeftElement,
 } from "@chakra-ui/react";
-import { GetStaticPropsContext } from "next";
 import { useRouter } from "next/dist/client/router";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import NextImage from "next/legacy/image";
 import Link from "next/link";
-import React, { useCallback, useEffect, useState } from "react";
-import { BsSearch } from "react-icons/bs";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 
 const MemeList = dynamic(() => import("../component/MemeList"), {ssr: false });
-const SizeSlider = dynamic(() => import("../component/common/SizeSlider"), {ssr: false });
 
 import { SmallCloseIcon } from "@chakra-ui/icons";
 
+import { FormContext } from "../component/common/FormContext";
 import { Locale } from "../component/common/NavbarComponent";
 import fetchFeatures from "../services/fetchFeatures";
 import { fetchMemes } from "../services/fetchMemes";
@@ -32,10 +25,11 @@ export default function Memes() {
   const router = useRouter();
   // const [locale] = useState(router.locale as Locale);
   const [queryFeatures, setQueryFeatures] = useState<string[]>([]);
-  const [query, setQuery] = useState<string>("");
   const [features, setFeatures] = useState<string[]>([]);
 
   const [memes, setMemes] = useState([]);
+
+  const { searchQry } = useContext<any>(FormContext);
 
   useEffect(() => {
     async function getFeatures() {
@@ -54,10 +48,10 @@ export default function Memes() {
     async function getMemes() {
       setIsLoading(true);
       let fetchedMemes = [];
-      if (query || queryFeatures.length)
+      if (searchQry || queryFeatures.length)
         fetchedMemes = await fetchMemes(router.query, locale, {
           features: queryFeatures,
-          query: query,
+          query: searchQry,
         });
       else fetchedMemes = await fetchMemes(router.query, locale);
 
@@ -75,21 +69,7 @@ export default function Memes() {
     debounceSearch();
 
     return () => clearTimeout(timeoutId); // Cleanup function to clear timeout on unmount or dependency change
-  }, [query, queryFeatures]);
-
-  const paramHandler = useCallback((param: string) => (e: any) => {
-    setQuery(e.target.value);
-    router.push(
-      {
-        pathname: router.pathname,
-        // query: routerQuery,
-      },
-      undefined,
-      {
-        shallow: true,
-      }
-    );
-  }, []);
+  }, [searchQry, queryFeatures]);
 
   const handleFeatureChange = useCallback(
     (feat: string) => (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
@@ -153,25 +133,7 @@ export default function Memes() {
           key="ogpic"
         />
       </Head>
-      <Box bg='#333' className="memes-list" width={{ base: "90%", lg: "95%" }}>
-        <Flex margin="30px 0px 10px 10px">
-          <InputGroup>
-            <InputLeftElement
-              pointerEvents="none"
-              children={<Icon fontSize="20px" as={BsSearch} color="white" />}
-            />
-            <Input
-              className="search-bar"
-              color='white'
-              defaultValue={router.query.query}
-              fontSize="30px"
-              onChange={paramHandler("query")}
-              fontFamily={'body'}
-              placeholder="Search Bucky's"
-              variant="md"
-            />
-          </InputGroup>
-        </Flex>
+      <Box bg='rgb(12, 12, 12)' className="memes-list" width={{ base: "90%", lg: "95%" }}>
         <Box className="filters">
           <Box
             mb="20px"
@@ -240,7 +202,7 @@ export default function Memes() {
                 ))}
             </Box>
           </Box>
-          <SizeSlider />
+          {/* <SizeSlider /> */}
         </Box>
         <Box h="100vh" padding="15px">
           {isLoading ? (
