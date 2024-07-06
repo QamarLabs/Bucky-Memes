@@ -2,8 +2,8 @@ import { extendTheme, ThemeConfig } from "@chakra-ui/react";
 
 const customTheme: ThemeConfig = extendTheme({
   fonts: {
-    heading: `"Montserrat", sans-serif;`,
-    body: `"Montserrat", sans-serif;`,
+    heading: `"Roboto Flex", sans-serif;`,
+    body: `"Roboto Flex", sans-serif;`,
   },
   colors: {
     buttonText: "#ffffff",

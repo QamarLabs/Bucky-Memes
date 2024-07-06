@@ -63,19 +63,21 @@ const NewsletterComponent = () => {
         <Form>
           <Field name="email" validate={validateEmail}>
             {({ field, form }: any) => (
-              <FormControl isInvalid={form.errors.email && form.touched.email}>
-                <FormLabel htmlFor="email">Your email</FormLabel>
+              <FormControl isInvalid={form.errors.email && form.touched.email} className='roboto-flex-text'>
+                <FormLabel fontSize="1.5rem" color='white' htmlFor="email" textAlign={{ bsea: 'center', lg: 'left'}}>Your email</FormLabel>
                 <Input
                   {...field}
                   size="lg"
+                  color='white'
                   id="email"
                   placeholder="contact@h2t.club"
+                  fontSize="1.3rem"
                 />
                 <FormErrorMessage>{form.errors.email}</FormErrorMessage>
               </FormControl>
             )}
           </Field>
-          <Button mt={4} colorScheme="teal" type="submit">
+          <Button mt={4} className='roboto-flex-text' type="submit">
             Subscribe
           </Button>
         </Form>

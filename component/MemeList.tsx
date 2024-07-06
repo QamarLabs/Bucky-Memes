@@ -15,9 +15,9 @@ const MemeList = (props: { memes: any; locale: Locale }) => {
   if (!props.memes?.length) {
     return (
       <>
-        <Center fontSize="20px">
-          There are no activities that match these criteria at the moment. Would
-          you like to subscribe to our newsletter to be kept informed?
+        <Center className='roboto-flex-text' fontSize="1.75rem" color='white'>
+          There are no memes that match these criteria at the moment. <br/>
+          Would you like to subscribe to our newsletter to be kept informed?
         </Center>
         <Center>
           <Box width="300px" margin="3%">

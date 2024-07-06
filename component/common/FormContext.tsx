@@ -1,6 +1,5 @@
 // context/UserContext.js
-import { useMediaQuery, useToast } from "@chakra-ui/react";
-import { useRouter } from "next/router";
+import { useClipboard, useToast } from "@chakra-ui/react";
 import React, { createContext, useCallback, useState } from "react";
 
 interface FormContextDefault {
@@ -49,15 +48,18 @@ const defaultValues = {
 
 export const FormContext = createContext<FormContextDefault>(defaultValues);
 
+const isMobileDevice = () => {
+  return /Mobi|Android/i.test(navigator.userAgent);
+};
+
 const FormProvider = ({ children }: React.PropsWithChildren<any>) => {
   const toast = useToast();
+  const { hasCopied, onCopy, setValue } = useClipboard('');
   const [copied, setCopied] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [currentMinMax, setCurrentMinMax] = useState<number[]>([0, 50]);
   const [query, setQuery] = useState<string>("");
-  const [isMobile] = useMediaQuery('(max-width: 1000px)')
-
   const handleSizeImage = useCallback(
     (minMaxScale: number[]) => setCurrentMinMax(minMaxScale),
     []
@@ -67,11 +69,12 @@ const FormProvider = ({ children }: React.PropsWithChildren<any>) => {
     (url: string, name: string) =>
       async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation();
-        alert(isMobile);
         try {
           setCopied(true);
-          if(isMobile) {
-            await navigator.clipboard.writeText(url);
+
+          if(isMobileDevice()) {
+            setValue(url);
+            onCopy();
             window.open(url, "_blank")?.focus();
           } else {
             const response = await fetch(url);
@@ -105,7 +108,7 @@ const FormProvider = ({ children }: React.PropsWithChildren<any>) => {
           const response = await fetch(url);
           const blob = await response.blob();
 
-          if (isMobile) {
+          if (isMobileDevice()) {
             const file = new File([blob], "yourImageFileName.jpg", {
               type: blob.type,
             });
@@ -115,6 +118,7 @@ const FormProvider = ({ children }: React.PropsWithChildren<any>) => {
                 title: "Download Image",
                 text: `Download ${name}!`,
               });
+
           } else {
             const blobUrl = URL.createObjectURL(blob);
             const link = document.createElement("a");

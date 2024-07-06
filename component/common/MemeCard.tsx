@@ -29,13 +29,13 @@ const MemeCard = ({ meme, locale }: MemeCardProps) => {
 
   const width = useMemo(() => {
     let decimalLessThanOne: number = currentMinMax[1];
-    let scalingNumber = 150 + decimalLessThanOne;
+    let scalingNumber = 225 + decimalLessThanOne;
     return `${scalingNumber}px`;
   }, [currentMinMax]);
 
   const imageHeight = useMemo(() => {
     let decimalLessThanOne: number = currentMinMax[1];
-    let scalingNumber = 100 + decimalLessThanOne;
+    let scalingNumber = 175 + decimalLessThanOne;
     return `${scalingNumber}px`;
   }, [currentMinMax]);
 
@@ -48,7 +48,7 @@ const MemeCard = ({ meme, locale }: MemeCardProps) => {
   return (
     <Box
       key={meme.slug}
-      borderRadius="lg"
+      borderRadius="sm"
       borderWidth="1px"
       borderColor="rgb(12, 12, 12)"
       boxShadow="lg"
@@ -77,13 +77,16 @@ const MemeCard = ({ meme, locale }: MemeCardProps) => {
           onLoadingComplete={() => setLoadingImg(false)}
         />
       </Box>
-
-      <Box minHeight="0px" p="5" display="flex">
+      <Box minHeight="0px" px="5" py="1" fontSize={{ base: "1.75rem", md: "1.1rem", lg: "1rem"}} color='white' fontFamily="autography" whiteSpace='nowrap'>
+        <p>{meme.name}</p>
+      </Box>
+      <Box minHeight="0px" px="5" py="2" display="flex">
         <Button
           onClick={copyImageToClipboard(meme.cloudinaryUrl, meme.name)}
           size={iconSize}
           mr="10px"
           type="button"
+          borderRadius={'0'}
         >
           {!copied ? <BsClipboard /> : <BsCheck />}
         </Button>
@@ -92,6 +95,7 @@ const MemeCard = ({ meme, locale }: MemeCardProps) => {
           onClick={downloadImage(meme.cloudinaryUrl, meme.name)}
           size={iconSize}
           type="button"
+          borderRadius={'0'}
         >
           {!downloaded ? <BsDownload /> : <BsCheck />}
         </Button>

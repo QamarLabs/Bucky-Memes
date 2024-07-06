@@ -50,7 +50,7 @@ const NavbarComponent = () => {
   // };
   const handleSearchChange = useCallback((e: any) => {
     setSearchQuery(e.target.value);
-  }, [])
+  }, []);
 
   return (
     <Flex
@@ -63,11 +63,11 @@ const NavbarComponent = () => {
       h="60px"
       bg="#FACD00"
     >
-      <Center p="10px">
+      <Center px="10px" py={{ base: "20px", sm: "10px"}}>
         <Box w="100%" h="100%">
           <Link href="/" aria-label="back to bucky memes homepage" passHref>
             <Box
-              width="125px"
+              width={{ base: "75px", lg: "125px"}}
               height="100%"
               position="relative"
               cursor="pointer"
@@ -80,21 +80,19 @@ const NavbarComponent = () => {
       <Spacer />
 
       <Center>
-        <Flex margin="10px 0px 10px 10px">
-          <InputGroup>
+        <Flex margin={{ base: '0px 0px 0px 0px', md: "10px 0px 10px 10px"}}>
+          <InputGroup minWidth={{ base: 'initial', md: '400px'}}>
             <InputLeftElement
               pointerEvents="none"
-              children={<Icon fontSize="20px" as={BsSearch} color="white" />}
+              children={<Icon fontSize={{ base: '10px', md: '16px', lg: "20px"}} as={BsSearch} color="white" />}
             />
             <Input
-              className="search-bar"
+              className="search-bar roboto-flex-text"
               color="white"
               defaultValue={router.query.query}
               value={searchQry}
               onChange={handleSearchChange}
-              fontSize={{ base: "14px", lg: "30px" }}
-              fontFamily={"body"}
-              fontWeight="200"
+              fontSize={{ base: "14px", md: '22px', lg: "30px" }}
               placeholder="Search Bucky's"
               variant="md"
             />
@@ -108,6 +106,7 @@ const NavbarComponent = () => {
           <>
             <Button
               className="help-button-desktop"
+              fontFamily="autography"
               variant="ghost"
               onClick={onOpen}
               mr="1"
@@ -129,8 +128,13 @@ const NavbarComponent = () => {
         )}
         <Modal size="lg" isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
-          <ModalContent>
-            <ModalHeader>Welcome to success!</ModalHeader>
+          <ModalContent className="roboto-flex-text">
+            <ModalHeader
+              fontWeight="600 !important"
+              className="roboto-flex-text"
+            >
+              Welcome to success!
+            </ModalHeader>
             <ModalCloseButton />
             <ModalBody whiteSpace="pre-line">
               <Flex mb="20px">
@@ -152,7 +156,12 @@ const NavbarComponent = () => {
               />
             </ModalBody>
             <ModalFooter>
-              <Button onClick={onClose} variant="ghost">
+              <Button
+                fontWeight="800 !important"
+                className="roboto-flex-text"
+                onClick={onClose}
+                variant="ghost"
+              >
                 Keep it up!
               </Button>
             </ModalFooter>

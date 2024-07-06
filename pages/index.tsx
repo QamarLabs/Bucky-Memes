@@ -167,6 +167,7 @@ export default function Memes() {
                     borderRadius="full"
                     px="2"
                     boxShadow="inset 0 0 0px 1px #FFA500"
+                    className="roboto-flex-text"
                   >
                     {feature}
                   </Badge>
@@ -195,6 +196,8 @@ export default function Memes() {
                     borderRadius="full"
                     px="2"
                     boxShadow="inset 0 0 0px 1px #FFA500"
+                    className="roboto-flex-text"
+                    // fontWeight="100"
                   >
                     {qFeature}
                     <SmallCloseIcon />
