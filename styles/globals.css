@@ -360,6 +360,11 @@ a {
   .help-button-mobile {
     display: block !important;
   }
+  .crypto-coin-loader {
+    position: relative;
+    height: 3.75rem;
+    width: 3.75rem;
+  }
 
   .wave {
     width: 200px;

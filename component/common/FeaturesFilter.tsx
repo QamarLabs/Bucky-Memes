@@ -67,7 +67,7 @@ const FeaturesFilter = ({
               fontSize="1em"
               borderRadius="full"
               px="2"
-              boxShadow="inset 0 0 0px 1px #FFA500"
+              boxShadow="inset 0 0 0px 1px white"
               className="roboto-flex-text"
             >
               {feature}

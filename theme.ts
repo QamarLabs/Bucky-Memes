@@ -43,7 +43,7 @@ const customTheme: ThemeConfig = extendTheme({
     Badge: {
       baseStyle: {
         fontWeight: "bold",
-        color: "buckyGoldTwo",
+        color: "white",
         borderColor: "buckyGoldTwo",
         _hover: {
           boxShadow: "0 4px 8px buckyBoxShadow",
@@ -52,6 +52,7 @@ const customTheme: ThemeConfig = extendTheme({
       variants: {
         ghost: {
           bg: "white",
+          color: 'buckyGoldOne'
         },
         solid: {
           color: 'white',

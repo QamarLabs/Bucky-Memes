@@ -57,16 +57,16 @@ const NavbarComponent = () => {
       bg="#FACD00"
       flexWrap="wrap"
     >
-      <Center px="10px" py={{ base: "20px", sm: "10px", md: "1rem" }}>
+      <Center px="10px" my={{ base: "20px", sm: "10px", md: "0" }}>
         <Box w="100%" h="100%">
           <Link href="/" aria-label="back to bucky memes homepage" passHref>
             <Box
-              width={{ base: "80px", sm: "100px", md: "75px", lg: "125px" }}
+              width={{ base: "80px", sm: "100px", md: "100px", lg: "125px" }}
               height="100%"
               position="relative"
               cursor="pointer"
             >
-              <Image alt="$BUCKY" src="logo.png" />
+              <Image my={{ md: '0.75rem', lg: '0.5rem'}} alt="$BUCKY" src="logo.png" />
             </Box>
           </Link>
         </Box>
@@ -103,7 +103,7 @@ const NavbarComponent = () => {
       </Center>
       <Spacer />
 
-      <Center width={{ base: "100%", md: "initial" }}>
+      <Center width={{ base: "100%", md: "initial" }} mr={{ base: 'initial', md: '10px', lg: '20px' }}>
         <IconButton
           fontSize={{ base: "20px", md: "30px" }}
           variant="ghost"

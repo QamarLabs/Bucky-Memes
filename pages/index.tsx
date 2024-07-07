@@ -106,7 +106,6 @@ export default function Memes() {
         <Box className="floating-button">
           <NextImage
             layout="fill"
-            style={{ transform: "scale(0.6)" }}
             src="/navigate-bucky.svg"
             alt="Navigate to Bucky on Sol"
           />
