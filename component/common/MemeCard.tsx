@@ -50,14 +50,14 @@ const MemeCard = ({ meme, locale }: MemeCardProps) => {
       role="group"
       textAlign="left"
       bg="rgb(12, 12, 12)"
-      width={{ base: "45%", md: '40%', lg: width }}
+      width={{ base: "45%", md: "40%", lg: width }}
       mx={{ base: "auto", sm: "initial" }}
       _hover={{
-        transform: { base: 'unset', md: "scale(1.05)"},
+        transform: { base: "unset", md: "scale(1.05)" },
       }}
       position={{ base: "relative", md: "initial" }}
     >
-      <Box width="100%" minHeight={imageHeight} position="relative">
+      <Box width="100%" minHeight={{ base: 150, md: 250 }} position="relative">
         {loadingImg ? (
           <CircularProgress
             as={CustomImageLoader}
@@ -78,11 +78,11 @@ const MemeCard = ({ meme, locale }: MemeCardProps) => {
         minHeight="0px"
         px="5"
         py="3"
-        fontSize={{ md: "1.4rem",  xl: "1.6rem" }}
+        fontSize={{ md: "1.4rem", xl: "1.6rem" }}
         letterSpacing="0.05rem"
         color="white"
         className="cursive-font-text"
-        fontWeight={'bold'}
+        fontWeight={"bold"}
         whiteSpace={"nowrap"}
         display={{ base: "none", md: "block" }}
       >
@@ -91,71 +91,57 @@ const MemeCard = ({ meme, locale }: MemeCardProps) => {
 
       <Box
         minHeight="100%"
-        width='100%'
-        opacity={{base: '0', md: '1' }}
+        width="100%"
+        opacity={{ base: "0", md: "1" }}
         px={{ base: "0", md: "5" }}
         py={"1"}
         display="flex"
-        flexDir={{ base: 'column', md: 'row' }}
-        alignItems={{ base: "center", md: 'unset' }}
-        justifyContent={{ base: 'center', md: 'unset' }}
+        flexDir={{ base: "column", md: "row" }}
+        alignItems={{ base: "center", md: "unset" }}
+        justifyContent={{ base: "center", md: "unset" }}
         position={{ base: "absolute", md: "initial" }}
         transition="opacity 0.5s ease-in-out"
         top={0}
         left={0}
-        zIndex={9999}
-        bg={{ base: "#333", md: 'unset' }}
-        _groupHover={
-          {
-            opacity: '1'
-          }
-        }
+        zIndex={0}
+        bg={{ base: "#333", md: "unset" }}
+        _groupHover={{
+          opacity: "1",
+        }}
       >
         <Box
-        minHeight="0px"
-        px="5"
-        py="3"
-        fontSize={ "1.4rem"}
-        letterSpacing="0.1rem"
-        color="white"
-        className="cursive-font-text"
-        fontWeight={'bold'}
-        display={{ base: "inline-flex", md: "none" }}
-      >
-        <p>{meme.name}</p>
-      </Box>
-      <Box margin='0' padding='0'>
-        <Button
-          onClick={copyImageToClipboard(meme.cloudinaryUrl, meme.name)}
-          size={{ base: 'lg', md: 'sm' }}
-          mr="10px"
-          type="button"
-          borderRadius={"0"}
-        >
-          {!copied ? <BsClipboard /> : <BsCheck />}
-        </Button>
-
-        <Button
-          onClick={downloadImage(meme.cloudinaryUrl, meme.name)}
-          size={{ base: 'lg', md: 'sm' }}
-          type="button"
-          borderRadius={"0"}
-        >
-          {!downloaded ? <BsDownload /> : <BsCheck />}
-        </Button>
-      </Box>
-        {/* <Box
-          opacity="1"
-          transition={"opacity 0.5s ease-in-out"}
-          pl="5"
-          py="1"
+          minHeight="0px"
+          px="1"
+          py="3"
+          fontSize={"1rem"}
+          letterSpacing="0.1rem"
           color="white"
-          fontSize="0.75rem"
-          fontFamily={'body'}
-          fontWeight="light"
+          className="cursive-font-text"
+          fontWeight={"bold"}
+          display={{ base: "inline-flex", md: "none" }}
         >
-          {meme.name}
-        </Box> */}
+          <p>{meme.name}</p>
+        </Box>
+        <Box>
+          <Button
+            onClick={copyImageToClipboard(meme.cloudinaryUrl, meme.name)}
+            size={{ base: "lg", md: "sm" }}
+            mr={{ base: "5px", md: "10px" }}
+            type="button"
+            borderRadius={"0"}
+          >
+            {!copied ? <BsClipboard /> : <BsCheck />}
+          </Button>
+
+          <Button
+            onClick={downloadImage(meme.cloudinaryUrl, meme.name)}
+            size={{ base: "lg", md: "sm" }}
+            type="button"
+            borderRadius={"0"}
+          >
+            {!downloaded ? <BsDownload /> : <BsCheck />}
+          </Button>
+        </Box>
       </Box>
     </Box>
   );
