@@ -24,30 +24,23 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCallback, useContext, useState } from "react";
-import { BsSearch } from "react-icons/bs";
+import {
+  BsInstagram,
+  BsSearch,
+  BsTelegram,
+  BsTiktok,
+  BsTwitterX,
+  BsXCircle,
+  BsXLg,
+} from "react-icons/bs";
 import { FormContext } from "./FormContext";
 
 export type Locale = "en" | "fr";
 
 const NavbarComponent = () => {
   const router = useRouter();
-  // const [locale, setLocale] = useState(router.locale as Locale);
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const { setSearchQuery, searchQry } = useContext(FormContext);
-  // const changeLocale = (value: Locale) => {
-  //   setLocale(value);
-  //   router.push(
-  //     {
-  //       pathname: router.pathname,
-  //       query: { ...router.query },
-  //     },
-  //     undefined,
-  //     {
-  //       locale: value,
-  //       scroll: false,
-  //     }
-  //   );
-  // };
+
   const handleSearchChange = useCallback((e: any) => {
     setSearchQuery(e.target.value);
   }, []);
@@ -60,14 +53,15 @@ const NavbarComponent = () => {
       w="100%"
       top="0"
       zIndex="100"
-      h="60px"
+      h={{ base: "123px", md: "60px" }}
       bg="#FACD00"
+      flexWrap="wrap"
     >
-      <Center px="10px" py={{ base: "20px", sm: "10px"}}>
+      <Center px="10px" py={{ base: "20px", sm: "10px", md: "1rem" }}>
         <Box w="100%" h="100%">
           <Link href="/" aria-label="back to bucky memes homepage" passHref>
             <Box
-              width={{ base: "75px", lg: "125px"}}
+              width={{ base: "80px", sm: "100px", md: "75px", lg: "125px" }}
               height="100%"
               position="relative"
               cursor="pointer"
@@ -80,11 +74,19 @@ const NavbarComponent = () => {
       <Spacer />
 
       <Center>
-        <Flex margin={{ base: '0px 0px 0px 0px', md: "10px 0px 10px 10px"}}>
-          <InputGroup minWidth={{ base: 'initial', sm: '300px', md: '400px'}}>
+        <Flex margin={{ base: "0px 0px 0px 0px", md: "10px 0px 10px 10px" }}>
+          <InputGroup
+            minWidth={{ base: "60vw", sm: "300px", md: "400px", xl: "500px" }}
+          >
             <InputLeftElement
               pointerEvents="none"
-              children={<Icon fontSize={{ base: '10px', md: '16px', lg: "20px"}} as={BsSearch} color="white" />}
+              children={
+                <Icon
+                  fontSize={{ base: "10px", md: "16px", lg: "1rem" }}
+                  as={BsSearch}
+                  color="white"
+                />
+              }
             />
             <Input
               className="search-bar roboto-flex-text"
@@ -92,7 +94,7 @@ const NavbarComponent = () => {
               defaultValue={router.query.query}
               value={searchQry}
               onChange={handleSearchChange}
-              fontSize={{ base: "14px", md: '22px', lg: "30px" }}
+              fontSize={{ base: "14px", md: "22px", lg: "1rem" }}
               placeholder="Search Bucky's"
               variant="md"
             />
@@ -101,72 +103,42 @@ const NavbarComponent = () => {
       </Center>
       <Spacer />
 
-      <Center>
-        {!router.pathname.includes("trip") && (
-          <>
-            <Button
-              className="help-button-desktop"
-              fontFamily="autography"
-              variant="ghost"
-              onClick={onOpen}
-              mr="1"
-            >
-              What is Bucky?
-            </Button>
-
-            <IconButton
-              p="0px 15px 5px 0px"
-              className="help-button-mobile"
-              onClick={onOpen}
-              fontSize={"30px"}
-              variant="ghost"
-              colorScheme="teal"
-              aria-label="get info"
-              icon={<InfoIcon />}
-            />
-          </>
-        )}
-        <Modal size="lg" isOpen={isOpen} onClose={onClose}>
-          <ModalOverlay />
-          <ModalContent className="roboto-flex-text">
-            <ModalHeader
-              fontWeight="600 !important"
-              className="roboto-flex-text"
-            >
-              Welcome to success!
-            </ModalHeader>
-            <ModalCloseButton />
-            <ModalBody whiteSpace="pre-line">
-              <Flex mb="20px">
-                <Center w="100%">
-                  <a href="https://buckyonsol.com/" title="Bucky on Sol">
-                    <Avatar
-                      size="2xl"
-                      name="Bucky"
-                      src="https://res.cloudinary.com/aa1997/image/upload/v1720130139/Web3-Client-Projects/Leo_Bucky.png"
-                    />
-                  </a>
-                </Center>
-              </Flex>
-              <div
-                dangerouslySetInnerHTML={{
-                  __html:
-                    "This token empowers meme creators & celebrates internet culture. Very fun meme token project, Zero tax, pure simplicity, growing stronger by the day.<br /><br />We’re here to add a splash of color to the blockchain scene and create memorable experiences for our community. Share positive vibes, and ride the crypto wave together. Zero taxes, LP burnt, and contract renounced.",
-                }}
-              />
-            </ModalBody>
-            <ModalFooter>
-              <Button
-                fontWeight="800 !important"
-                className="roboto-flex-text"
-                onClick={onClose}
-                variant="ghost"
-              >
-                Keep it up!
-              </Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
+      <Center width={{ base: "100%", md: "initial" }}>
+        <IconButton
+          fontSize={{ base: "20px", md: "30px" }}
+          variant="ghost"
+          mr={{ base: "17.5%", md: "initial" }}
+          aria-label="get info"
+          onClick={() => window.open("https://t.me/buckyonsol", "_blank")}
+          icon={<BsTelegram />}
+        />
+        <IconButton
+          fontSize={{ base: "20px", md: "30px" }}
+          variant="ghost"
+          mr={{ base: "17.5%", md: "initial" }}
+          aria-label="get info"
+          onClick={() => window.open("https://x.com/buckyonsol", "_blank")}
+          icon={<BsTwitterX />}
+        />
+        <IconButton
+          fontSize={{ base: "20px", md: "30px" }}
+          variant="ghost"
+          mr={{ base: "17.5%", md: "initial" }}
+          aria-label="get info"
+          onClick={() =>
+            window.open("https://www.instagram.com/buckyonsol/", "_blank")
+          }
+          icon={<BsInstagram />}
+        />
+        <IconButton
+          fontSize={{ base: "20px", md: "30px" }}
+          variant="ghost"
+          aria-label="get info"
+          onClick={() =>
+            window.open("https://www.tiktok.com/@buckyonsol", "_blank")
+          }
+          icon={<BsTiktok />}
+        />
       </Center>
     </Flex>
   );

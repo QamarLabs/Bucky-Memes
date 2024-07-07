@@ -5,7 +5,7 @@ import { BsCheck, BsClipboard, BsDownload } from "react-icons/bs";
 
 import { FormContext } from "./FormContext";
 import { Locale } from "./NavbarComponent";
-import {CustomImageLoader} from "./CustomLoader";
+import { CustomImageLoader } from "./CustomLoader";
 
 const MAX_DESCRIPTION_LENGTH = 250;
 
@@ -36,12 +36,6 @@ const MemeCard = ({ meme, locale }: MemeCardProps) => {
     return `${scalingNumber}px`;
   }, [currentMinMax]);
 
-  const iconSize = useMemo(() => {
-    let decimalLessThanOne: number = currentMinMax[1];
-    let size = 100 + decimalLessThanOne > 150 ? "sm" : "xs";
-    return size;
-  }, [currentMinMax]);
-
   return (
     <Box
       key={meme.slug}
@@ -51,20 +45,25 @@ const MemeCard = ({ meme, locale }: MemeCardProps) => {
       boxShadow="lg"
       cursor="pointer"
       display="inline-block"
-      margin={{ base: "5px", xl: "5px" }}
+      margin={{ base: "-5px", md: "5px" }}
       overflow="hidden"
       role="group"
       textAlign="left"
       bg="rgb(12, 12, 12)"
-      width={width}
+      width={{ base: "45%", md: '40%', lg: width }}
       mx={{ base: "auto", sm: "initial" }}
       _hover={{
-        transform: "scale(1.05)",
+        transform: { base: 'unset', md: "scale(1.05)"},
       }}
+      position={{ base: "relative", md: "initial" }}
     >
       <Box width="100%" minHeight={imageHeight} position="relative">
         {loadingImg ? (
-          <CircularProgress as={CustomImageLoader} isIndeterminate color="buckyGoldOne" />
+          <CircularProgress
+            as={CustomImageLoader}
+            isIndeterminate
+            color="buckyGoldOne"
+          />
         ) : null}
         <NextImage
           fill={true}
@@ -78,18 +77,57 @@ const MemeCard = ({ meme, locale }: MemeCardProps) => {
       <Box
         minHeight="0px"
         px="5"
-        py="1"
-        fontSize={{ base: "1.75rem", md: "1.1rem", lg: "1rem" }}
+        py="3"
+        fontSize={{ md: "1.4rem",  xl: "1.6rem" }}
+        letterSpacing="0.05rem"
         color="white"
-        fontFamily="autography"
-        whiteSpace="nowrap"
+        className="cursive-font-text"
+        fontWeight={'bold'}
+        whiteSpace={"nowrap"}
+        display={{ base: "none", md: "block" }}
       >
         <p>{meme.name}</p>
       </Box>
-      <Box minHeight="0px" px="5" py="2" display="flex">
+
+      <Box
+        minHeight="100%"
+        width='100%'
+        opacity={{base: '0', md: '1' }}
+        px={{ base: "0", md: "5" }}
+        py={"1"}
+        display="flex"
+        flexDir={{ base: 'column', md: 'row' }}
+        alignItems={{ base: "center", md: 'unset' }}
+        justifyContent={{ base: 'center', md: 'unset' }}
+        position={{ base: "absolute", md: "initial" }}
+        transition="opacity 0.5s ease-in-out"
+        top={0}
+        left={0}
+        zIndex={9999}
+        bg={{ base: "#333", md: 'unset' }}
+        _groupHover={
+          {
+            opacity: '1'
+          }
+        }
+      >
+        <Box
+        minHeight="0px"
+        px="5"
+        py="3"
+        fontSize={ "1.4rem"}
+        letterSpacing="0.1rem"
+        color="white"
+        className="cursive-font-text"
+        fontWeight={'bold'}
+        display={{ base: "inline-flex", md: "none" }}
+      >
+        <p>{meme.name}</p>
+      </Box>
+      <Box margin='0' padding='0'>
         <Button
           onClick={copyImageToClipboard(meme.cloudinaryUrl, meme.name)}
-          size={iconSize}
+          size={{ base: 'lg', md: 'sm' }}
           mr="10px"
           type="button"
           borderRadius={"0"}
@@ -99,12 +137,13 @@ const MemeCard = ({ meme, locale }: MemeCardProps) => {
 
         <Button
           onClick={downloadImage(meme.cloudinaryUrl, meme.name)}
-          size={iconSize}
+          size={{ base: 'lg', md: 'sm' }}
           type="button"
           borderRadius={"0"}
         >
           {!downloaded ? <BsDownload /> : <BsCheck />}
         </Button>
+      </Box>
         {/* <Box
           opacity="1"
           transition={"opacity 0.5s ease-in-out"}
