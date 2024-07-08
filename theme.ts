@@ -55,7 +55,7 @@ const customTheme: ThemeConfig = extendTheme({
           color: 'buckyGoldOne'
         },
         solid: {
-          color: 'white',
+          color: 'black',
           bg: "buckyGoldOne",
         },
 

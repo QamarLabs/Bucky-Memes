@@ -201,7 +201,7 @@ function CreateMemeForm() {
                       htmlFor="name"
                       textAlign={{ base: "center", lg: "left" }}
                     >
-                      Your name
+                      Meme Name
                     </FormLabel>
                     <Input
                       {...field}

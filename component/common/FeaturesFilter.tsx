@@ -107,6 +107,7 @@ const FeaturesFilter = ({
               px="2"
               boxShadow="inset 0 0 0px 1px #FFA500"
               className="roboto-flex-text"
+              fontWeight="bold !important"
               // fontWeight="100"
             >
               {qFeature}
