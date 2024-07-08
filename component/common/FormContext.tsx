@@ -21,8 +21,13 @@ interface FormContextDefault {
   searchQry: string;
   queryFeatures: string[];
   features: string[];
-  handleSelectFeature: (feat: string) => (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => void;
-  handleRemoveFeature:  (feat: string) => (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => void;
+  setQueryFeatures: (feats: string[]) => void;
+  handleSelectFeature: (
+    feat: string
+  ) => (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => void;
+  handleRemoveFeature: (
+    feat: string
+  ) => (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => void;
 }
 
 const defaultValues = {
@@ -50,8 +55,11 @@ const defaultValues = {
   searchQry: "",
   features: [],
   queryFeatures: [],
-  handleSelectFeature: (feat: string) => (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {},
-  handleRemoveFeature: (feat: string) => (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {}
+  setQueryFeatures: (feats: string[]) => {},
+  handleSelectFeature:
+    (feat: string) => (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {},
+  handleRemoveFeature:
+    (feat: string) => (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {},
 };
 
 export const FormContext = createContext<FormContextDefault>(defaultValues);
@@ -189,7 +197,6 @@ const FormProvider = ({ children }: React.PropsWithChildren<any>) => {
     [queryFeatures]
   );
 
-
   useEffect(() => {
     async function getFeatures() {
       const fetchedfeatures = await fetchFeatures();
@@ -198,7 +205,6 @@ const FormProvider = ({ children }: React.PropsWithChildren<any>) => {
 
     getFeatures();
   }, []);
-
 
   return (
     <FormContext.Provider
@@ -215,8 +221,11 @@ const FormProvider = ({ children }: React.PropsWithChildren<any>) => {
         searchQry: query,
         features,
         queryFeatures,
+        setQueryFeatures: (feats: string[]) => {
+          setQueryFeatures(feats);
+        },
         handleRemoveFeature,
-        handleSelectFeature
+        handleSelectFeature,
       }}
     >
       {children}

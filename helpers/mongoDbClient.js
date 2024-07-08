@@ -20,10 +20,10 @@ if (!MONGODB_DB) {
  * during API Route usage.
  */
 
-export async function connectToDatabase() {
+export async function connectToDatabase(isPost = false) {
   const opts = {
   };
-  
+  const uri = isPost ? process.env.ADD_MONGODB_URI : process.env.MONGODB_URI
   return await MongoClient.connect(process.env.MONGODB_URI, opts).then((client) => {
     return {
       client,
