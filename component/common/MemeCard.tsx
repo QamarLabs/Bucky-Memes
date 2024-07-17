@@ -21,7 +21,7 @@ import { CustomImageLoader } from "./CustomLoader";
 
 interface MemeCardProps {
   meme: any;
-  locale: Locale;
+  locale?: Locale;
 }
 
 const MemeCard = ({ meme, locale }: MemeCardProps) => {

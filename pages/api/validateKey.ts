@@ -29,7 +29,7 @@ export default async function memes(
       const ip = xForwardedFor
         ? xForwardedFor.split(",")[0]
         : req.connection.remoteAddress;
-      throw new Error("Unauthorized user trying to create meme from ip: " + ip + " This reason no invalid encrypted key!");
+      throw new Error("Unauthorized user trying to create meme from ip: " + ip + " This reason no valid encrypted key!");
     }
     return res.json({ validated: true });
   } catch (error: any) {

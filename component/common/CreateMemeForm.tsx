@@ -18,29 +18,44 @@ import FeaturesFilter from "./FeaturesFilter";
 import { FormContext } from "./FormContext";
 import { CustomPageLoader } from "./CustomLoader";
 
-function CreateMemeForm() {
+interface CreateMemeFormProps {
+  refreshAdminMemes: Function;
+}
+
+function CreateMemeForm({ refreshAdminMemes }:  CreateMemeFormProps) {
   const { queryFeatures, setQueryFeatures } = useContext(FormContext);
   const toast = useToast();
+  const [mounted, setMounted] = useState(false);
   const [loadingPage, setLoadingPage] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [passwordValidated, setPasswordValidate] = useState(false);
   const [passwordInStorage, setPasswordInStorage] = useState("");
 
+
   useEffect(() => {
     async function checkPwd() {
+      setLoadingPage(true);
       const pwdInStorage = window.localStorage.getItem("bucky-pwd");
-      if (pwdInStorage) {
-        const result = await validate(passwordInStorage);
+      if(pwdInStorage) {
+        const result = await validate(pwdInStorage);
+        
         setPasswordValidate(result.validated);
-        setPasswordInStorage(pwdInStorage || "");
+        setPasswordInStorage(pwdInStorage);    
       }
       setLoadingPage(false);
     }
-
+    
     checkPwd();
-  }, [passwordInStorage]);
 
-  const togglePasswordVisibility = () => {
+    return () => {
+      setQueryFeatures([]);
+    }
+  }, []);
+
+
+
+  const togglePasswordVisibility = (e: any) => {
+    e.stopPropagation();
     setShowPassword(!showPassword);
   };
 
@@ -64,21 +79,17 @@ function CreateMemeForm() {
     return error;
   };
 
-  const uploadImage = async (file: File, pwd: string) => {
-    const validatePwdResponse = await validate(pwd);
-    if (validatePwdResponse.validated) {
-      const formData = new FormData();
-      formData.append("file", file);
-      formData.append(
-        "upload_preset",
-        process.env.NEXT_PUBLIC_CLOUDINARY_PRESET!
-      );
-      const { cloudinaryId, cloudinaryUrl } = await addImageToCloudinary(
-        formData
-      );
-      return { cloudinaryId, cloudinaryUrl };
-    }
-    return { cloudinaryId: "", cloudinaryUrl: "" };
+  const uploadImage = async (file: File) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append(
+      "upload_preset",
+      process.env.NEXT_PUBLIC_CLOUDINARY_PRESET!
+    );
+    const { cloudinaryId, cloudinaryUrl } = await addImageToCloudinary(
+      formData
+    );
+    return { cloudinaryId, cloudinaryUrl };
   };
 
   if (loadingPage) return <CustomPageLoader />;
@@ -89,8 +100,7 @@ function CreateMemeForm() {
       onSubmit={async (values, actions) => {
         actions.setSubmitting(true);
         const { cloudinaryId, cloudinaryUrl } = await uploadImage(
-          values.image!,
-          passwordInStorage || values.password
+          values.image!
         );
         if (!cloudinaryId) throw new Error("Did not upload to cloudinary");
 
@@ -102,6 +112,7 @@ function CreateMemeForm() {
           cloudinaryUrl,
           name: values.name,
           features: queryFeatures,
+          createdDate: new Date()
         };
 
         await createMeme(data, passwordInStorage || values.password);
@@ -116,6 +127,7 @@ function CreateMemeForm() {
           position: "top",
         });
 
+        await refreshAdminMemes();
         actions.resetForm();
         actions.setSubmitting(false);
       }}
@@ -161,7 +173,9 @@ function CreateMemeForm() {
                       position="absolute"
                       top="50%"
                       right="0"
+                      zIndex={100}
                       transform="translateY(-50%)"
+                      type="button"
                       color="white"
                       _hover={{ background: "none" }}
                     />
