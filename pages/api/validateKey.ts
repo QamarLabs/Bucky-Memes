@@ -46,8 +46,8 @@ export default async function memes(
       throw new Error("Unauthorized user trying to create meme from ip: " + ip);
     }
     return res.json({ validated: true });
-  } catch (error) {
-    await db.collection("logs").insertOne({ message: JSON.stringify(error) });
-    return res.json({ validated: false, message: "Error getting keys." });
+  } catch (error: any) {
+    await db.collection("logs").insertOne({ message: JSON.stringify(error.message) });
+    return res.json({ validated: false, message: `Error getting keys: ${error}` });
   }
 }
