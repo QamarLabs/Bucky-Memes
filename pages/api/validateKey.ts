@@ -18,7 +18,7 @@ export default async function memes(
 ) {
   const { db, client } = await connectToDatabase();
   try {
-    const encryptedKey = req.headers["X-Api-Key"];
+    const encryptedKey = JSON.parse(req.body).apiKey;
 
     if (!encryptedKey) {
       const xForwardedFor = req.headers["x-forwarded-for"] as string;
@@ -33,7 +33,7 @@ export default async function memes(
       process.env.ADD_SECRET_KEY!
     );
     const decryptedKey = bytes.toString(CryptoJS.enc.Utf8);
-    // console.log("decryptedKey:", decryptedKey);
+
     const isValidKey = await db
       .collection("keys")
       .findOne({ value: decryptedKey });

@@ -31,7 +31,6 @@ export default async function memes(
 
     let result: any = {};
     const filters: any = {};
-    console.log("req.method:", req.method);
     if (req.method == "POST") {
       const { query, features } = JSON.parse(req.body) as SearchBody;
       const queryToUse = query ? query.trim() : "";

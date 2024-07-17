@@ -21,7 +21,6 @@ export async function fetchMemes(
 ) {
     const apiUrl = defineApiUrl(queryParams, locale);
     let opts: RequestInit = { method: 'GET' }
-    console.log('searchParams:', searchParams);
     if(searchParams)
         opts = {
             method: 'POST',
