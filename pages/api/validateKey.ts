@@ -18,14 +18,14 @@ export default async function memes(
 ) {
   const { db, client } = await connectToDatabase();
   try {
-    const encryptedKey = req.headers["x-api-key"];
+    const encryptedKey = req.headers["X-Api-Key"];
 
     if (!encryptedKey) {
       const xForwardedFor = req.headers["x-forwarded-for"] as string;
       const ip = xForwardedFor
         ? xForwardedFor.split(",")[0]
         : req.connection.remoteAddress;
-      throw new Error("Unauthorized user trying to create meme from ip: " + ip);
+      throw new Error("Unauthorized user trying to create meme from ip: " + ip + " This reason no encrypted key!");
     }
 
     const bytes = CryptoJS.AES.decrypt(
@@ -43,7 +43,7 @@ export default async function memes(
       const ip = xForwardedFor
         ? xForwardedFor.split(",")[0]
         : req.connection.remoteAddress;
-      throw new Error("Unauthorized user trying to create meme from ip: " + ip);
+      throw new Error("Unauthorized user trying to create meme from ip: " + ip + " This reason no invalid encrypted key!");
     }
     return res.json({ validated: true });
   } catch (error: any) {
