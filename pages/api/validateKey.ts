@@ -18,25 +18,11 @@ export default async function memes(
 ) {
   const { db, client } = await connectToDatabase();
   try {
-    const encryptedKey = JSON.parse(req.body).apiKey;
-
-    if (!encryptedKey) {
-      const xForwardedFor = req.headers["x-forwarded-for"] as string;
-      const ip = xForwardedFor
-        ? xForwardedFor.split(",")[0]
-        : req.connection.remoteAddress;
-      throw new Error("Unauthorized user trying to create meme from ip: " + ip + " This reason no encrypted key!");
-    }
-
-    const bytes = CryptoJS.AES.decrypt(
-      encryptedKey as string,
-      process.env.ADD_SECRET_KEY!
-    );
-    const decryptedKey = bytes.toString(CryptoJS.enc.Utf8);
+    const apiKey = JSON.parse(req.body).apiKey;
 
     const isValidKey = await db
       .collection("keys")
-      .findOne({ value: decryptedKey });
+      .findOne({ value: apiKey });
     // console.log('isValidKey:', isValidKey);
     if (!isValidKey) {
       const xForwardedFor = req.headers["x-forwarded-for"] as string;
