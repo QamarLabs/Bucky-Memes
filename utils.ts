@@ -1,0 +1,1 @@
+export const getTestIndicator = () => (process.env.NODE_ENV === 'development')

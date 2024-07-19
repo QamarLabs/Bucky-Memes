@@ -1,16 +1,22 @@
 import { Badge, Box } from "@chakra-ui/react";
-import { useContext, useRef, useState } from "react";
+import { useContext, useMemo, useRef, useState } from "react";
 import { FormContext } from "./FormContext";
 import { SmallCloseIcon } from "@chakra-ui/icons";
 
 interface FeaturesFilterProps {
   selectFeatures?: boolean;
   removeFeatures?: boolean;
+  featuresProp?: any[];
+  handleRemoveFeatureProp?: (
+    feat: string
+  ) => (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => Promise<void>;
 }
 
 const FeaturesFilter = ({
   selectFeatures,
   removeFeatures,
+  featuresProp,
+  handleRemoveFeatureProp,
 }: FeaturesFilterProps) => {
   const { features, queryFeatures, handleSelectFeature, handleRemoveFeature } =
     useContext(FormContext);
@@ -36,6 +42,8 @@ const FeaturesFilter = ({
   const stopDrag = () => {
     setIsDragging(false);
   };
+
+  const currentFeaturesSelected = useMemo(() => featuresProp ? featuresProp : queryFeatures, [featuresProp]);
 
   if (selectFeatures)
     return (
@@ -93,14 +101,14 @@ const FeaturesFilter = ({
         onMouseUp={stopDrag}
         onMouseLeave={stopDrag}
       >
-        {queryFeatures &&
-          queryFeatures.map((qFeature) => (
+        {currentFeaturesSelected &&
+          currentFeaturesSelected.map((fSelected) => (
             <Badge
               cursor="pointer"
               variant={"solid"}
-              id={qFeature}
-              key={`${qFeature}-selected`}
-              onClick={handleRemoveFeature(qFeature)}
+              id={fSelected}
+              key={`${fSelected}-selected`}
+              onClick={handleRemoveFeatureProp ? handleRemoveFeatureProp(fSelected) : handleRemoveFeature(fSelected)}
               mr="1"
               fontSize="1em"
               borderRadius="full"
@@ -110,7 +118,7 @@ const FeaturesFilter = ({
               fontWeight="bold !important"
               // fontWeight="100"
             >
-              {qFeature}
+              {fSelected}
               <SmallCloseIcon />
             </Badge>
           ))}

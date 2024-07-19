@@ -27,6 +27,31 @@ export default class Document extends NextDocument {
             href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Great+Vibes&display=swap"
             rel="stylesheet"
           />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Arial:wght@400;700&display=swap"
+            rel="stylesheet"
+          />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap"
+            rel="stylesheet"
+          />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Verdana:wght@400;700&display=swap"
+            rel="stylesheet"
+          />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Georgia:wght@400;700&display=swap"
+            rel="stylesheet"
+          />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap"
+            rel="stylesheet"
+          />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Times+New+Roman:wght@400;700&display=swap"
+            rel="stylesheet"
+          />
+
           <Script
             id="google_analytics_script"
             strategy="lazyOnload"

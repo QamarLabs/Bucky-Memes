@@ -55,58 +55,87 @@ const NavbarComponent = () => {
       zIndex="100"
       h={{ base: "123px", md: "60px" }}
       bg="#FACD00"
-      flexWrap="wrap"
+      flexWrap={"wrap"}
     >
-      <Center px="10px" my={{ base: "20px", sm: "10px", md: "0" }}>
-        <Box w="100%" h="100%">
-          <Link href="/" aria-label="back to bucky memes homepage" passHref>
-            <Box
-              width={{ base: "80px", sm: "100px", md: "100px", lg: "125px" }}
-              height="100%"
-              position="relative"
-              cursor="pointer"
-            >
-              <Image
-                my={{ md: "0.75rem", lg: "0.5rem" }}
-                alt="$BUCKY"
-                src="logo.png"
-              />
-            </Box>
-          </Link>
-        </Box>
-      </Center>
-      <Spacer />
-
-      {router.pathname === "/" && (
-        <Center>
-          <Flex margin={{ base: "0px 0px 0px 0px", md: "10px 0px 10px 10px" }}>
-            <InputGroup
-              minWidth={{ base: "60vw", sm: "300px", md: "400px", xl: "500px" }}
-            >
-              <InputLeftElement
-                pointerEvents="none"
-                children={
-                  <Icon
-                    fontSize={{ base: "10px", md: "16px", lg: "1rem" }}
-                    as={BsSearch}
-                    color="white"
-                  />
-                }
-              />
-              <Input
-                className="search-bar roboto-flex-text"
-                color="white"
-                defaultValue={router.query.query}
-                value={searchQry}
-                onChange={handleSearchChange}
-                fontSize={{ base: "14px", md: "22px", lg: "1rem" }}
-                placeholder="Search Bucky's"
-                variant="md"
-              />
-            </InputGroup>
-          </Flex>
+      <Box
+        p="0"
+        w={{ base: "100%", md: "70%" }}
+        display={"flex"}
+        justifyContent="space-between"
+      >
+        <Center px="10px" my={{ base: "20px", sm: "10px", md: "0" }}>
+          <Box w="100%" h="100%">
+            <Link href="/" aria-label="back to bucky memes homepage" passHref>
+              <Box
+                width={{ base: "80px", sm: "100px", md: "100px", lg: "125px" }}
+                height="100%"
+                position="relative"
+                cursor="pointer"
+              >
+                <Image
+                  my={{ md: "0.75rem", lg: "0.5rem" }}
+                  alt="$BUCKY"
+                  src="logo.png"
+                />
+              </Box>
+            </Link>
+          </Box>
         </Center>
-      )}
+        <Spacer display={{ base: "none", md: "initial" }} />
+
+        {(router.pathname === "/" || router.pathname === '/create-meme') && (
+          <Center>
+            <Flex
+              margin={{ base: "0px 0px 0px 0px", md: "10px 0px 10px 10px" }}
+              justifyContent='center'
+            >
+              <InputGroup
+                minWidth={{
+                  base: "60vw",
+                  sm: "60vw",
+                  md: "400px",
+                  xl: "500px",
+                }}
+              >
+                <InputLeftElement
+                  pointerEvents="none"
+                  children={
+                    <Icon
+                      fontSize={{ base: "10px", md: "16px", lg: "1rem" }}
+                      as={BsSearch}
+                      color="white"
+                    />
+                  }
+                />
+                <Input
+                  className="search-bar roboto-flex-text"
+                  color="white"
+                  defaultValue={router.query.query}
+                  value={searchQry}
+                  onChange={handleSearchChange}
+                  fontSize={{ base: "14px", md: "22px", lg: "1rem" }}
+                  placeholder="Search Bucky's"
+                  variant="md"
+                />
+              </InputGroup>
+            </Flex>
+            {
+              router.pathname !== '/create-meme' && (
+              <Button
+                as='a'
+                href='/create-meme'
+                variant="ghost"
+                fontSize={{ base: "0.5rem", md: "0.75rem" }}
+                width={{ base: "60px", sm: "100px", md: "120px" }}
+                whiteSpace="break-spaces"
+              >
+                Create your own BUCKY
+              </Button>
+              )
+            }
+          </Center>
+        )}
+      </Box>
       <Spacer />
 
       <Center

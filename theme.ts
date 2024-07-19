@@ -11,6 +11,8 @@ const customTheme: ThemeConfig = extendTheme({
     buckyGoldTwo: "#FFA500",
     buckyBoxShadow: "rgba(255, 165, 0, 0.75)",
     bg: "rgb(12, 12, 12)",
+    errorBg: "#E53E3E", // Adding error background color
+    errorHoverBg: "#C53030", // Adding error hover background color
   },
   components: {
     // You can extend or override default component styles here
@@ -38,6 +40,13 @@ const customTheme: ThemeConfig = extendTheme({
             color: "white",
           },
         },
+        error: {
+          bg: "errorBg",
+          color: "white",
+          _hover: {
+            bg: "errorHoverBg",
+          },
+        },
       },
     },
     Badge: {
@@ -58,7 +67,6 @@ const customTheme: ThemeConfig = extendTheme({
           color: 'black',
           bg: "buckyGoldOne",
         },
-
       },
     },
   },

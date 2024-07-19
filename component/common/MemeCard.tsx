@@ -9,24 +9,36 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
+  Text,
   useDisclosure,
 } from "@chakra-ui/react";
 import NextImage from "next/image";
 import { useContext, useMemo, useState } from "react";
-import { BsCheck, BsClipboard, BsDownload, BsEye } from "react-icons/bs";
+import {
+  BsCheck,
+  BsClipboard,
+  BsDownload,
+  BsEye,
+  BsTrash,
+} from "react-icons/bs";
 
 import { FormContext } from "./FormContext";
 import { Locale } from "./NavbarComponent";
 import { CustomImageLoader } from "./CustomLoader";
+import { usePathname } from "next/navigation";
 
 interface MemeCardProps {
   meme: any;
+  deleteFunc?: (
+    id: string
+  ) => (e: React.MouseEvent<HTMLButtonElement>) => Promise<any>;
   locale?: Locale;
 }
 
-const MemeCard = ({ meme, locale }: MemeCardProps) => {
+const MemeCard = ({ meme, deleteFunc, locale }: MemeCardProps) => {
   const [open, setOpen] = useState(false);
   const [loadingImg, setLoadingImg] = useState<boolean>(true);
+
   const {
     copied,
     downloaded,
@@ -56,10 +68,15 @@ const MemeCard = ({ meme, locale }: MemeCardProps) => {
         role="group"
         textAlign="left"
         bg="rgb(12, 12, 12)"
-        width={{ base: "45%", md: "40%", lg: width }}
+        width={{ base: "45%", sm: '30%', md: "40%", lg: width }}
         mx={{ base: "auto", sm: "initial" }}
         _hover={{
           transform: { base: "unset", md: "scale(1.05)" },
+        }}
+        sx={{
+          "&:hover #delete-meme": {
+            transform: "none",
+          },
         }}
         position={{ base: "relative", md: "initial" }}
       >
@@ -131,11 +148,19 @@ const MemeCard = ({ meme, locale }: MemeCardProps) => {
           >
             <p>{meme.name}</p>
           </Box>
-          <Box>
+          <Box
+            textAlign="center"
+            display="flex"
+            w="100%"
+            justifyContent={{
+              base: deleteFunc ? "space-between" : "center",
+              md: deleteFunc ? "space-between" : "start",
+            }}
+          >
             <Button
               onClick={copyImageToClipboard(meme.cloudinaryUrl, meme.name)}
               size={{ base: "lg", md: "sm" }}
-              mr={{ base: "5px", md: "10px" }}
+              mr={{ base: "5px", md: deleteFunc ? "0" : "10px" }}
               type="button"
               borderRadius={"0"}
               display={{ base: "none", md: "initial" }}
@@ -153,15 +178,37 @@ const MemeCard = ({ meme, locale }: MemeCardProps) => {
             >
               <BsEye />
             </Button>
-
             <Button
               onClick={downloadImage(meme.cloudinaryUrl, meme.name)}
               size={{ base: "lg", md: "sm" }}
+              mr={{ base: "5px", md: "0" }}
+              fontSize={{ base: "25px" }}
               type="button"
               borderRadius={"0"}
             >
               {!downloaded ? <BsDownload /> : <BsCheck />}
             </Button>
+            {deleteFunc && (
+              <Box id="delete-meme">
+                <Button
+                  onClick={deleteFunc(meme._id)}
+                  size={{ base: "lg", md: "sm" }}
+                  mr={{ base: "5px", md: "0" }}
+                  type="button"
+                  variant="error"
+                  borderRadius={"0"}
+                >
+                  <Text
+                    className="roboto-flex-text"
+                    display={{ base: "none", md: "initial" }}
+                    mr="4px"
+                  >
+                    Delete Meme
+                  </Text>
+                  <BsTrash />
+                </Button>
+              </Box>
+            )}
           </Box>
         </Box>
       </Box>

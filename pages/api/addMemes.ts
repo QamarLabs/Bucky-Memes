@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import CryptoJS from "crypto-js";
 import { connectToDatabase } from "../../helpers/mongoDbClient";
+import { getTestIndicator } from "../../utils";
 
 export interface MemeBody {
   cloudinaryId: string;
@@ -53,7 +54,15 @@ export default async function features(
 
     await db
       .collection("memes")
-      .insertOne({ cloudinaryId, cloudinaryUrl, features, name });
+      .insertOne({
+        cloudinaryId,
+        cloudinaryUrl,
+        features,
+        name,
+        createdDate: new Date(),
+        testInd: getTestIndicator(),
+        deletedInd: false,
+      });
 
     await client.close();
 

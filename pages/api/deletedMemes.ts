@@ -2,6 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 import { connectToDatabase } from "../../helpers/mongoDbClient";
+import { getTestIndicator } from "../../utils";
 
 export const config = {
   api: {
@@ -16,13 +17,17 @@ export default async function memes(
   res: NextApiResponse<any>
 ) {
   const { db, client } = await connectToDatabase();
+  const deletedMemesFilters = {
+    // testInd: getTestIndicator(),
+    deletedInd: true,
+  };
   try {
     let result: any = {};
     result = await db
       .collection("memes")
-      .find({})
+      .find(deletedMemesFilters)
       .sort({ createdDate: 1 }) // 1 for ascending order
-      .limit(10)
+      .limit(50)
       .toArray();
 
     await client.close();

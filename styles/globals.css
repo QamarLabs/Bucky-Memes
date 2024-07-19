@@ -311,6 +311,21 @@ a {
   }
 }
 
+
+#create-meme-form {
+  width: 600px;
+}
+
+#custom-meme-img {
+  margin-top: 0vh !important;
+}
+
+#custom-meme-img > div > canvas {
+  transform: scale(1);
+  top: 0px !important;
+  left: 0px !important;
+}
+
 @media screen and (max-width: 1000px) {
   .floating-button {
     width: 75px;
@@ -350,6 +365,26 @@ a {
   .activity-description {
     padding: 7%;
   }
+
+}
+
+@media screen and (max-width: 770px) {
+  #custom-meme-img {
+    /* margin-top: 10vh !important; */
+    width: 350px;
+    height: 350px;
+    /* background-color: blue; */
+  }
+  #custom-meme-img > div {
+    width: fit-content !important;
+    height: fit-content !important;
+    transform: scale(0.9);
+  }
+  #custom-meme-img > div > canvas {
+    height: fit-content !important;
+
+    transform: scale(0.9);
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -375,6 +410,36 @@ a {
     line-height: 200px;
     font-size: 75px;
   }
+
+  
+  #create-meme-form {
+    width: 400px;
+  }
+  
+  #custom-meme-img > div {
+    /* transform: scale(0.75); */
+  }
+
+  #custom-meme-img > div > canvas {
+    /* transform: scale(0.75); */
+    top: 0px !important;
+    left: 0px !important;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  #custom-meme-img {
+    padding-top: 0px;
+    /* height: 400px; */
+    /* background-color: green; */
+  }
+
+
+  #custom-meme-img > div > canvas {
+    width: 400px !important;
+    top: -50px !important;
+    /* left: -60px !important; */
+  }
 }
 
 @media screen and (max-width: 400px) {
@@ -385,5 +450,21 @@ a {
   }
   .wave h2 {
     font-size: 50px;
+  }
+
+  #create-meme-form {
+    width: 100%;
+  }
+
+  #custom-meme-img {
+    width: 100vw !important;
+    background-color: yellow !important;
+  }
+  
+  #custom-meme-img > div > canvas {
+    top: -3.25rem !important;
+    left: 1.1rem !important;
+    background: green !important;
+    width: 100vw !important;;
   }
 }

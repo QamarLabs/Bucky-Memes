@@ -23,7 +23,6 @@ export default function Memes() {
 
   const { searchQry, queryFeatures } = useContext<any>(FormContext);
 
-
   const [locale] = useState(router.locale as Locale);
 
   useEffect(() => {
@@ -55,7 +54,6 @@ export default function Memes() {
     return () => clearTimeout(timeoutId); // Cleanup function to clear timeout on unmount or dependency change
   }, [searchQry, queryFeatures]);
 
-
   return (
     <>
       <Head>
@@ -75,7 +73,7 @@ export default function Memes() {
       <Box
         bg="rgb(12, 12, 12)"
         className="memes-list"
-        width={{ base: "100%", xl: "95%" }}
+        width={{ base: "100%", xl: "99%" }}
       >
         <Box className="filters">
           <Box
@@ -88,7 +86,7 @@ export default function Memes() {
             <FeaturesFilter removeFeatures />
           </Box>
         </Box>
-        <Box h="100vh" padding={{ base: '0', md: "15px"}}>
+        <Box h="100vh" padding={{ base: "0", md: "15px" }}>
           {isLoading ? (
             <Box textAlign="center">
               <CircularProgress

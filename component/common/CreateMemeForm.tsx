@@ -20,39 +20,23 @@ import { CustomPageLoader } from "./CustomLoader";
 
 interface CreateMemeFormProps {
   refreshAdminMemes: Function;
+  validatePwd: Function;
+  passwordValidated: boolean;
+  setPasswordValidated: (val: boolean) => void;
+  passwordInStorage: string;
 }
 
-function CreateMemeForm({ refreshAdminMemes }:  CreateMemeFormProps) {
+function CreateMemeForm({
+  refreshAdminMemes,
+  validatePwd,
+  passwordValidated,
+  setPasswordValidated,
+  passwordInStorage,
+}: CreateMemeFormProps) {
   const { queryFeatures, setQueryFeatures } = useContext(FormContext);
   const toast = useToast();
   const [mounted, setMounted] = useState(false);
-  const [loadingPage, setLoadingPage] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
-  const [passwordValidated, setPasswordValidate] = useState(false);
-  const [passwordInStorage, setPasswordInStorage] = useState("");
-
-
-  useEffect(() => {
-    async function checkPwd() {
-      setLoadingPage(true);
-      const pwdInStorage = window.localStorage.getItem("bucky-pwd");
-      if(pwdInStorage) {
-        const result = await validate(pwdInStorage);
-        
-        setPasswordValidate(result.validated);
-        setPasswordInStorage(pwdInStorage);    
-      }
-      setLoadingPage(false);
-    }
-    
-    checkPwd();
-
-    return () => {
-      setQueryFeatures([]);
-    }
-  }, []);
-
-
 
   const togglePasswordVisibility = (e: any) => {
     e.stopPropagation();
@@ -64,18 +48,6 @@ function CreateMemeForm({ refreshAdminMemes }:  CreateMemeFormProps) {
     if (!name) {
       error = "Name is required";
     }
-    return error;
-  };
-
-  const validatePwd = async (pwd: string) => {
-    let error;
-    if (!pwd) error = "Password is required";
-
-    const result = await validate(pwd);
-
-    if (result.validated) error = "Password is invalid";
-    else setPasswordValidate(true);
-
     return error;
   };
 
@@ -91,8 +63,6 @@ function CreateMemeForm({ refreshAdminMemes }:  CreateMemeFormProps) {
     );
     return { cloudinaryId, cloudinaryUrl };
   };
-
-  if (loadingPage) return <CustomPageLoader />;
 
   return (
     <Formik
@@ -112,7 +82,7 @@ function CreateMemeForm({ refreshAdminMemes }:  CreateMemeFormProps) {
           cloudinaryUrl,
           name: values.name,
           features: queryFeatures,
-          createdDate: new Date()
+          createdDate: new Date(),
         };
 
         await createMeme(data, passwordInStorage || values.password);
@@ -133,7 +103,7 @@ function CreateMemeForm({ refreshAdminMemes }:  CreateMemeFormProps) {
       }}
     >
       {({ setFieldValue, values, isSubmitting, setSubmitting }) => (
-        <Form style={{ width: "600px" }}>
+        <Form id="create-meme-form">
           {!passwordValidated ? (
             <Field
               name="password"
@@ -192,7 +162,7 @@ function CreateMemeForm({ refreshAdminMemes }:  CreateMemeFormProps) {
                       const validatePwdResponse = await validate(
                         values.password
                       );
-                      setPasswordValidate(validatePwdResponse.validated);
+                      setPasswordValidated(validatePwdResponse.validated);
                       setSubmitting(false);
                     }}
                   >
