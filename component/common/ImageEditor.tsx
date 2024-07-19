@@ -193,12 +193,6 @@ function ImageEditor() {
                         Bunky
                       </option>
                       <option
-                        style={{ fontFamily: `'Arial', sans-serif` }}
-                        value="'Arial', sans-serif"
-                      >
-                        Arial
-                      </option>
-                      <option
                         style={{
                           fontFamily: `'Times New Roman', Times, serif`,
                         }}

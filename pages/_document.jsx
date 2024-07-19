@@ -7,28 +7,13 @@ export default class Document extends NextDocument {
       <Html lang="en">
         <Head>
           <link rel="shortcut icon" href="/favicon.jpg" />
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link
-            rel="preconnect"
-            href="https://fonts.gstatic.com"
-            crossOrigin="true"
-          />
+
           <link
             href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap"
             rel="stylesheet"
           ></link>
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link
-            rel="preconnect"
-            href="https://fonts.gstatic.com"
-            crossOrigin="true"
-          />
           <link
             href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Great+Vibes&display=swap"
-            rel="stylesheet"
-          />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Arial:wght@400;700&display=swap"
             rel="stylesheet"
           />
           <link
@@ -51,7 +36,12 @@ export default class Document extends NextDocument {
             href="https://fonts.googleapis.com/css2?family=Times+New+Roman:wght@400;700&display=swap"
             rel="stylesheet"
           />
-
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link
+            rel="preconnect"
+            href="https://fonts.gstatic.com"
+            crossOrigin="true"
+          />
           <Script
             id="google_analytics_script"
             strategy="lazyOnload"
