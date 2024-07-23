@@ -47,27 +47,26 @@ const NavbarComponent = () => {
 
   return (
     <Flex
-      backgroundColor="white"
       position="sticky"
       boxShadow="md"
       w="100%"
       top="0"
       zIndex="100"
-      h={{ base: "123px", md: "60px" }}
+      h={{ base: "123px", lg: "60px" }}
       bg="#FACD00"
       flexWrap={"wrap"}
     >
       <Box
         p="0"
-        w={{ base: "100%", md: "70%" }}
+        w={{ base: "100%", lg: "70%" }}
         display={"flex"}
-        justifyContent="space-between"
+        justifyContent={router.pathname !== "/create-meme" ? "space-between" : "space-around"}
       >
         <Center px="10px" my={{ base: "20px", sm: "10px", md: "0" }}>
           <Box w="100%" h="100%">
             <Link href="/" aria-label="back to bucky memes homepage" passHref>
               <Box
-                width={{ base: "80px", sm: "100px", md: "100px", lg: "125px" }}
+                width={{ base: "60px", sm: "100px", md: "100px", lg: "125px" }}
                 height="100%"
                 position="relative"
                 cursor="pointer"
@@ -83,17 +82,22 @@ const NavbarComponent = () => {
         </Center>
         <Spacer display={{ base: "none", md: "initial" }} />
 
-        {(router.pathname === "/" || router.pathname === '/create-meme') && (
+        {(router.pathname === "/" || router.pathname === "/create-meme") && (
           <Center>
             <Flex
               margin={{ base: "0px 0px 0px 0px", md: "10px 0px 10px 10px" }}
-              justifyContent='center'
+              justifyContent="center"
             >
               <InputGroup
+                maxW={{
+                  base: "50vw",
+                  sm: "50vw",
+                  md: "unset",
+                }}
                 minWidth={{
-                  base: "60vw",
-                  sm: "60vw",
-                  md: "400px",
+                  base: "50vw",
+                  sm: "50vw",
+                  md: "500px",
                   xl: "500px",
                 }}
               >
@@ -119,33 +123,35 @@ const NavbarComponent = () => {
                 />
               </InputGroup>
             </Flex>
-            {
-              router.pathname !== '/create-meme' && (
+            {router.pathname !== "/create-meme" && (
               <Button
-                as='a'
-                href='/create-meme'
+                as="a"
+                href="/create-meme"
                 variant="ghost"
                 fontSize={{ base: "0.5rem", md: "0.75rem" }}
-                width={{ base: "60px", sm: "100px", md: "120px" }}
+                ml={{ base: "2vw", md: 'initial' }}
+                width={{ base: "75px", sm: "100px", md: "120px" }}
                 whiteSpace="break-spaces"
               >
                 Create your own BUCKY
               </Button>
-              )
-            }
+            )}
           </Center>
         )}
       </Box>
       <Spacer />
 
       <Center
-        width={{ base: "100%", md: "initial" }}
+        width={{ base: "100%", lg: "initial" }}
         mr={{ base: "initial", md: "10px", lg: "20px" }}
+        px={{ base: '0.5rem', md: '1rem', lg: 'initial' }}
+        display='flex'
+        justifyContent='space-between'
       >
         <IconButton
           fontSize={{ base: "20px", md: "30px" }}
           variant="ghost"
-          mr={{ base: "17.5%", md: "initial" }}
+          mr={{ base: "17.5%", lg: "initial" }}
           aria-label="get info"
           onClick={() => window.open("https://t.me/buckyonsol", "_blank")}
           icon={<BsTelegram />}

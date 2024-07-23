@@ -18,7 +18,7 @@ import FeaturesFilter from "./FeaturesFilter";
 import { FormContext } from "./FormContext";
 import { CustomPageLoader } from "./CustomLoader";
 
-interface CreateMemeFormProps {
+interface AdminCreateMemeFormProps {
   refreshAdminMemes: Function;
   validatePwd: Function;
   passwordValidated: boolean;
@@ -26,13 +26,13 @@ interface CreateMemeFormProps {
   passwordInStorage: string;
 }
 
-function CreateMemeForm({
+function AdminCreateMemeForm({
   refreshAdminMemes,
   validatePwd,
   passwordValidated,
   setPasswordValidated,
   passwordInStorage,
-}: CreateMemeFormProps) {
+}: AdminCreateMemeFormProps) {
   const { queryFeatures, setQueryFeatures } = useContext(FormContext);
   const toast = useToast();
   const [mounted, setMounted] = useState(false);
@@ -264,4 +264,4 @@ function CreateMemeForm({
   );
 }
 
-export default CreateMemeForm;
+export default AdminCreateMemeForm;

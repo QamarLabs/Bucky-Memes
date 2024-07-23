@@ -1,5 +1,5 @@
 import { Box, Divider, Text, useToast } from "@chakra-ui/react";
-import CreateMemeForm from "../component/common/CreateMemeForm";
+import AdminCreateMemeForm from "../component/common/AdminCreateMemeForm";
 import MemeCard from "../component/common/MemeCard";
 import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { FormContext } from "../component/common/FormContext";
@@ -120,7 +120,7 @@ export default function AdminPage() {
       <Text fontSize="3rem" className="roboto-flex-text">
         Admin Panel
       </Text>
-      <CreateMemeForm
+      <AdminCreateMemeForm
         refreshAdminMemes={getRecentCreatedMemes}
         validatePwd={validatePwd}
         passwordInStorage={passwordInStorage}

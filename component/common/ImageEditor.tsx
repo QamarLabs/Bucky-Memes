@@ -75,7 +75,7 @@ function ImageEditor() {
               <Box
                 mx="auto"
                 mt={{ base: "10vh", md: "5vh" }}
-                px={{ base: "5vw", sm: "5rem", md: "initial" }}
+                px={{ base: "0vw", sm: "5rem", md: "initial" }}
                 height={{
                   base: "350px",
                   sm: "400px",
@@ -317,8 +317,7 @@ function ImageEditor() {
 
 const URLImage = ({ src }: { src: string }) => {
   const [image] = useImage(src);
-  console.log("image:", image);
-  return <KonvaImage width={400} height={400} image={image} />;
+  return <KonvaImage   width={400} height={400} image={image} />;
 };
 
 export default ImageEditor;
