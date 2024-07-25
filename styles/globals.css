@@ -446,10 +446,6 @@ a {
     width: 400px;
   }
 
-  #custom-meme-img > div {
-    /* transform: scale(0.75); */
-  }
-
   #custom-meme-img > div > canvas {
     /* transform: scale(0.75); */
     top: 0px !important;

@@ -65,6 +65,7 @@ const MemeCard = ({ meme, deleteFunc, locale }: MemeCardProps) => {
     <>
       <Box
         key={meme.slug}
+        flex={1}
         borderRadius="sm"
         borderWidth="1px"
         borderColor="rgb(12, 12, 12)"

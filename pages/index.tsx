@@ -86,7 +86,7 @@ export default function Memes() {
             <FeaturesFilter removeFeatures />
           </Box>
         </Box>
-        <Box h="100vh" padding={{ base: "0", md: "15px" }}>
+        <Box h="100vh" padding={{ base: "0", md: "15px" }} textAlign='center'>
           {isLoading ? (
             <Box textAlign="center">
               <CircularProgress

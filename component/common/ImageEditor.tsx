@@ -233,7 +233,7 @@ function ImageEditor() {
                         style={{ fontFamily: `"Roboto Flex", sans-serif` }}
                         value={`"Roboto Flex", sans-serif`}
                       >
-                        Bunky
+                        Bucky
                       </option>
                       <option
                         style={{

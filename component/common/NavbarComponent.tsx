@@ -1,8 +1,5 @@
-import { InfoIcon } from "@chakra-ui/icons";
 import {
-  Avatar,
   Box,
-  Button,
   Center,
   Flex,
   Icon,
@@ -11,28 +8,19 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
   Spacer,
-  useDisclosure,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useContext } from "react";
 import {
   BsInstagram,
   BsSearch,
   BsTelegram,
   BsTiktok,
   BsTwitterX,
-  BsXCircle,
-  BsXLg,
 } from "react-icons/bs";
+
 import { FormContext } from "./FormContext";
 
 export type Locale = "en" | "fr";
@@ -52,27 +40,29 @@ const NavbarComponent = () => {
       w="100%"
       top="0"
       zIndex="100"
-      h={{ base: "123px", lg: "60px" }}
+      h={{ base: "123px", sm: "60px", lg: "60px" }}
       bg="#FACD00"
       flexWrap={"wrap"}
     >
       <Box
         p="0"
-        w={{ base: "100%", lg: "70%" }}
+        w={{ base: "100%", sm: "60%", lg: "70%" }}
         display={"flex"}
-        justifyContent={router.pathname !== "/create-meme" ? "space-between" : "space-around"}
+        justifyContent={
+          router.pathname !== "/create-meme" ? "space-between" : "space-around"
+        }
       >
         <Center px="10px" my={{ base: "20px", sm: "10px", md: "0" }}>
           <Box w="100%" h="100%">
             <Link href="/" aria-label="back to bucky memes homepage" passHref>
               <Box
-                width={{ base: "60px", sm: "100px", md: "100px", lg: "125px" }}
+                width={{ base: "80px", sm: "70px", md: "100px", lg: "125px" }}
                 height="100%"
                 position="relative"
                 cursor="pointer"
               >
                 <Image
-                  my={{ md: "0.75rem", lg: "0.5rem" }}
+                  my={{ sm: "0.5rem", md: "0.75rem", lg: "0.5rem" }}
                   alt="$BUCKY"
                   src="logo.png"
                 />
@@ -85,20 +75,26 @@ const NavbarComponent = () => {
         {(router.pathname === "/" || router.pathname === "/create-meme") && (
           <Center>
             <Flex
-              margin={{ base: "0px 0px 0px 0px", md: "10px 0px 10px 10px" }}
+              maxW={{
+                base: "60vw",
+                sm: "45vw",
+                md: "unset",
+              }}
+              margin={{ base: "0rem 1rem", sm: "0", md: "10px 0px 10px 10px" }}
               justifyContent="center"
             >
               <InputGroup
                 maxW={{
-                  base: "50vw",
-                  sm: "50vw",
+                  base: "60vw",
+                  sm: "45vw",
                   md: "unset",
                 }}
                 minWidth={{
-                  base: "50vw",
-                  sm: "50vw",
+                  base: "60vw",
+                  sm: "45vw",
                   md: "500px",
-                  xl: "500px",
+
+                  xl: "600px",
                 }}
               >
                 <InputLeftElement
@@ -123,51 +119,47 @@ const NavbarComponent = () => {
                 />
               </InputGroup>
             </Flex>
-            {router.pathname !== "/create-meme" && (
-              <Button
-                as="a"
-                href="/create-meme"
-                variant="ghost"
-                fontSize={{ base: "0.5rem", md: "0.75rem" }}
-                ml={{ base: "2vw", md: 'initial' }}
-                width={{ base: "75px", sm: "100px", md: "120px" }}
-                whiteSpace="break-spaces"
-              >
-                Create your own BUCKY
-              </Button>
-            )}
           </Center>
         )}
       </Box>
-      <Spacer />
+      <Spacer display={{ base: "none", sm: "none", md: "initial" }} />
 
       <Center
         width={{ base: "100%", lg: "initial" }}
+        maxWidth={{ base: "100%", sm: "30vw", md: "20vw" }}
         mr={{ base: "initial", md: "10px", lg: "20px" }}
-        px={{ base: '0.5rem', md: '1rem', lg: 'initial' }}
-        display='flex'
-        justifyContent='space-between'
+        ml={{ base: "initial", sm: "5vw", md: "unset" }}
+        px={{ base: "0.5rem", sm: "0rem", lg: "initial" }}
+        display="flex"
+        justifyContent={{
+          base: "space-between",
+          sm: "center",
+          md: "space-between",
+        }}
       >
         <IconButton
-          fontSize={{ base: "20px", md: "30px" }}
+          fontSize={{ base: "1rem", md: "30px" }}
           variant="ghost"
-          mr={{ base: "17.5%", lg: "initial" }}
+          mr={{ base: "14.5%", sm: "0", md: "initial" }}
+          px="0"
           aria-label="get info"
           onClick={() => window.open("https://t.me/buckyonsol", "_blank")}
           icon={<BsTelegram />}
         />
         <IconButton
-          fontSize={{ base: "20px", md: "30px" }}
+          fontSize={{ base: "1rem", sm: "0.8rem", md: "30px" }}
           variant="ghost"
-          mr={{ base: "17.5%", md: "initial" }}
+          mr={{ base: "14.5%", sm: "0", md: "initial" }}
+          px="0"
           aria-label="get info"
           onClick={() => window.open("https://x.com/buckyonsol", "_blank")}
           icon={<BsTwitterX />}
         />
         <IconButton
-          fontSize={{ base: "20px", md: "30px" }}
+          fontSize={{ base: "1rem", md: "30px" }}
           variant="ghost"
-          mr={{ base: "17.5%", md: "initial" }}
+          mr={{ base: "14.5%", sm: "initial", md: "initial" }}
+          px="0"
           aria-label="get info"
           onClick={() =>
             window.open("https://www.instagram.com/buckyonsol/", "_blank")
@@ -175,7 +167,8 @@ const NavbarComponent = () => {
           icon={<BsInstagram />}
         />
         <IconButton
-          fontSize={{ base: "20px", md: "30px" }}
+          fontSize={{ base: "1rem", md: "30px" }}
+          mr="0"
           variant="ghost"
           aria-label="get info"
           onClick={() =>
