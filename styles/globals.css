@@ -311,7 +311,6 @@ a {
   }
 }
 
-
 #create-meme-form {
   width: 600px;
 }
@@ -372,7 +371,6 @@ a {
   .activity-description {
     padding: 7%;
   }
-
 }
 
 @media screen and (max-width: 770px) {
@@ -393,7 +391,33 @@ a {
     transform: scale(0.9);
   }
 }
+@media screen and (min-width: 600px) and (max-width: 768px) {
+  #custom-meme-img {
+    padding: 0 12.5vw 0 12.5vw;
+    width: 80vw !important;
+    height: 600px !important;
+    margin-right: auto;
+    margin-left: auto;
+  }
 
+  #custom-meme-img > div {
+    transform: scale(1);
+  }
+  #custom-meme-img > div > canvas {
+    transform: scale(1);
+  }
+}
+
+@media screen and (min-width: 500px) and (max-width: 600px) {
+  #custom-meme-img {
+    padding: 0 3rem 0 3rem;
+    width: 80vw !important;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+/* @media screen and (min-width: 600px) and (max-width: 768px) */
 @media screen and (max-width: 600px) {
   .help-button-desktop {
     display: none !important;
@@ -418,7 +442,6 @@ a {
     font-size: 75px;
   }
 
-  
   #create-meme-form {
     width: 400px;
   }
@@ -443,18 +466,28 @@ a {
     padding-top: 0px;
   }
 
-
   #custom-meme-img > div > canvas {
     width: 400px !important;
     top: -50px !important;
     /* left: -60px !important; */
   }
-  
+
   #create-meme {
     width: 80vw !important;
   }
 }
-
+@media screen and (min-width: 401px) and (max-width: 500px) {
+  #custom-meme-img {
+    /* width: 90vw !important; */
+    width: 80vw !important;
+  }
+}
+@media screen and (min-width: 401px) {
+  #custom-meme-img {
+    /* width: 90vw !important; */
+    height: 410px !important;
+  }
+}
 @media screen and (max-width: 400px) {
   .crypto-coin-loader {
     position: relative;
@@ -472,11 +505,10 @@ a {
   #custom-meme-img {
     width: 90vw !important;
   }
-  
+
   #custom-meme-img > div > canvas {
     top: -3.25rem !important;
     left: 1.1rem !important;
-    width: 100vw !important;;
+    width: 100vw !important;
   }
-
 }
