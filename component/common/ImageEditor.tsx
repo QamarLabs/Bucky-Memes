@@ -9,13 +9,17 @@ import {
   Select,
 } from "@chakra-ui/react";
 import { Field, Form, Formik } from "formik";
-import { useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { BsDownload } from "react-icons/bs";
-import { Layer, Stage, Image as KonvaImage, Text } from "react-konva";
+import { Image as KonvaImage, Layer, Stage, Text } from "react-konva";
 import useImage from "use-image";
 
+import { isMobileDevice } from "../../utils";
+import { FormContext } from "./FormContext";
+
 function ImageEditor() {
-  const [image, setImage] = useState<string | undefined>("");
+  const { memeImage } = useContext(FormContext);
+  const [image, setImage] = useState<string | undefined>(() => memeImage);
   const [text, setText] = useState("");
   const [textPosition, setTextPosition] = useState({ x: 5, y: 425 });
   const [memeTextFontFamily, setMemeTextFontFamily] = useState(
@@ -24,6 +28,17 @@ function ImageEditor() {
   const [memeTextFontColor, setMemeTextFontColor] = useState("white");
   const inputRef = useRef<HTMLInputElement>(null);
   const resultImageRef = useRef<any>(null);
+
+  useEffect(() => {
+    (async function () {
+      if (memeImage) {
+        const response = await fetch(memeImage);
+        const blob = await response.blob();
+        const blobUrl = URL.createObjectURL(blob);
+        setImage(blobUrl);
+      }
+    })();
+  }, [memeImage]);
 
   const handleTextChange = (event: any) => {
     setText((event.target.value as string).toLocaleUpperCase() ?? "");
@@ -50,6 +65,16 @@ function ImageEditor() {
     return error;
   };
 
+  function downloadThroughLink(url: string, name: string) {
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = name; // specify the desired file name
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url); // Clean up the object URL
+  }
+
   return (
     <div>
       <Formik
@@ -57,13 +82,25 @@ function ImageEditor() {
         onSubmit={async (values: any, actions: any) => {
           actions.setSubmitting(true);
           if (resultImageRef.current) {
-            const dataURL = resultImageRef.current.toDataURL();
-            const link = document.createElement("a");
-            link.download = `${text}.png`;
-            link.href = dataURL;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            const uri = resultImageRef.current.toDataURL({ pixelRatio: 3 });
+            try {
+              if (isMobileDevice() && navigator.canShare) {
+                const blob = await fetch(uri).then((res) => res.blob());
+                const file = new File([blob], "canvas-image.png", {
+                  type: "image/png",
+                });
+                if (navigator.canShare({ files: [file] }))
+                  navigator.share({
+                    files: [file],
+                    title: "Canvas Image",
+                    text: "Check out this image from my canvas!",
+                  });
+              } else {
+                downloadThroughLink(uri, text);
+              }
+            } catch (error) {
+              console.error("Error sharing the image:", error);
+            }
           }
           actions.resetForm();
           actions.setSubmitting(false);
@@ -73,9 +110,11 @@ function ImageEditor() {
           <Form id="custom-meme">
             <FormControl>
               <Box
+                id='custom-meme-img-container'
                 mx="auto"
                 mt={{ base: "10vh", md: "5vh" }}
-                px={{ base: "0vw", sm: "5rem", md: "initial" }}
+                mb={{ sm: '10vh', md: 0 }}
+                px={{ base: "0vw", md: "initial" }}
                 height={{
                   base: "350px",
                   sm: "400px",
@@ -107,30 +146,34 @@ function ImageEditor() {
                   </Layer>
                 </Stage>
               </Box>
-              <FormLabel
-                fontSize="1.5rem"
-                color="white"
-                htmlFor="image"
-                textAlign={{ base: "center", lg: "left" }}
-              >
-                Upload Image
-              </FormLabel>
-              <Input
-                type="file"
-                size={{ base: "sm", md: "lg" }}
-                color="white"
-                id="image"
-                onChange={(event) => {
-                  const file = event.target.files![0];
-                  const reader = new FileReader();
+              {!memeImage && (
+                <>
+                  <FormLabel
+                    fontSize="1.5rem"
+                    color="white"
+                    htmlFor="image"
+                    textAlign={{ base: "center", lg: "left" }}
+                  >
+                    Upload Image
+                  </FormLabel>
+                  <Input
+                    type="file"
+                    size={{ base: "sm", md: "lg" }}
+                    color="white"
+                    id="image"
+                    onChange={(event) => {
+                      const file = event.target.files![0];
+                      const reader = new FileReader();
 
-                  reader.onload = () => {
-                    setImage(reader.result as string);
-                  };
-                  reader.readAsDataURL(file);
-                }}
-                fontSize="1.3rem"
-              />
+                      reader.onload = () => {
+                        setImage(reader.result as string);
+                      };
+                      reader.readAsDataURL(file);
+                    }}
+                    fontSize="1.3rem"
+                  />
+                </>
+              )}
             </FormControl>
             <Field name="memeText" validate={validateMemeText}>
               {({ field, form }: any) => (
@@ -162,7 +205,7 @@ function ImageEditor() {
               )}
             </Field>
             <Field>
-              {({ field, form }: any) => (
+              {({ form }: any) => (
                 <Box display="flex" flexDir={{ base: "column", md: "row" }}>
                   <FormControl
                     isInvalid={form.errors.memeText && form.touched.memeText}
@@ -317,7 +360,7 @@ function ImageEditor() {
 
 const URLImage = ({ src }: { src: string }) => {
   const [image] = useImage(src);
-  return <KonvaImage   width={400} height={400} image={image} />;
+  return <KonvaImage width={400} height={400} image={image} />;
 };
 
 export default ImageEditor;

@@ -1,6 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
 import { useToast } from "@chakra-ui/react";
 import React, { createContext, useCallback, useEffect, useState } from "react";
+
 import fetchFeatures from "../../services/fetchFeatures";
+import { isMobileDevice } from "../../utils";
 
 interface FormContextDefault {
   currentMinMax: number[];
@@ -28,6 +32,8 @@ interface FormContextDefault {
   handleRemoveFeature: (
     feat: string
   ) => (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => void;
+  memeImage: string;
+  setMemeImage: (mImage: string) => void;
 }
 
 const defaultValues = {
@@ -60,13 +66,11 @@ const defaultValues = {
     (feat: string) => (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {},
   handleRemoveFeature:
     (feat: string) => (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {},
+  memeImage: "",
+  setMemeImage: (val: string) => {},
 };
 
 export const FormContext = createContext<FormContextDefault>(defaultValues);
-
-const isMobileDevice = () => {
-  return /Mobi|Android/i.test(navigator.userAgent);
-};
 
 const FormProvider = ({ children }: React.PropsWithChildren<any>) => {
   const toast = useToast();
@@ -77,6 +81,7 @@ const FormProvider = ({ children }: React.PropsWithChildren<any>) => {
   const [query, setQuery] = useState<string>("");
   const [queryFeatures, setQueryFeatures] = useState<string[]>([]);
   const [features, setFeatures] = useState<string[]>([]);
+  const [memeImage, setMemeImage] = useState<string>("");
 
   const handleSizeImage = useCallback(
     (minMaxScale: number[]) => setCurrentMinMax(minMaxScale),
@@ -124,7 +129,7 @@ const FormProvider = ({ children }: React.PropsWithChildren<any>) => {
           const file = new File([blob], `${name}.png`, {
             type: "image/png",
           });
-          if (navigator.canShare({ files: [file] }))
+          if (navigator.canShare && navigator.canShare({ files: [file] }))
             await navigator.share({
               files: [file],
               title: "Download Image",
@@ -152,6 +157,8 @@ const FormProvider = ({ children }: React.PropsWithChildren<any>) => {
       },
     []
   );
+
+  const setMemeImageFunc = useCallback((val: string) => setMemeImage(val), []);
 
   const onMemeHovered = useCallback(() => (e: any) => setHovered(!hovered), []);
 
@@ -226,6 +233,8 @@ const FormProvider = ({ children }: React.PropsWithChildren<any>) => {
         },
         handleRemoveFeature,
         handleSelectFeature,
+        setMemeImage: setMemeImageFunc,
+        memeImage,
       }}
     >
       {children}

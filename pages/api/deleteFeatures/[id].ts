@@ -1,5 +1,6 @@
 import { Filter, ObjectId } from "mongodb";
 import type { NextApiRequest, NextApiResponse } from "next";
+
 import { connectToDatabase } from "../../../helpers/mongoDbClient";
 
 export default async function handler(
@@ -12,7 +13,6 @@ export default async function handler(
 
   const { id: featureId } = req.query;
   
-  console.log("featureId:", featureId);
   const filters: Filter<Document> = {
     // testInd: getTestIndicator(), 
     deletedInd: false,

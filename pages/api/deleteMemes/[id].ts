@@ -1,5 +1,6 @@
 import { ObjectId } from "mongodb";
 import type { NextApiRequest, NextApiResponse } from "next";
+
 import { connectToDatabase } from "../../../helpers/mongoDbClient";
 
 export default async function handler(
@@ -11,7 +12,6 @@ export default async function handler(
   }
 
   const { id } = req.query;
-  console.log("ID:", id);
 
   if (!id || Array.isArray(id)) {
     return res.status(400).json({ message: "Invalid ID" });

@@ -1,20 +1,31 @@
-import { Box, Divider, Text, useToast } from "@chakra-ui/react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import {
+  Accordion,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
+  Box,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
+import { useCallback, useContext, useEffect, useState } from "react";
+
 import AdminCreateMemeForm from "../component/common/AdminCreateMemeForm";
-import MemeCard from "../component/common/MemeCard";
-import { useCallback, useContext, useEffect, useMemo, useState } from "react";
-import { FormContext } from "../component/common/FormContext";
-import { fetchRecentMemes } from "../services/fetchRecentMemes";
 import { CustomPageLoader } from "../component/common/CustomLoader";
-import validate from "../services/validate";
-import { fetchDeletedMemes } from "../services/fetchDeletedMemes";
-import deleteMeme from "../services/deleteMeme";
 import FeaturesFilter from "../component/common/FeaturesFilter";
+import { FormContext } from "../component/common/FormContext";
+import MemeCard from "../component/common/MemeCard";
 import deleteFeature from "../services/deleteFeature";
+import deleteMeme from "../services/deleteMeme";
+import { fetchDeletedMemes } from "../services/fetchDeletedMemes";
+import { fetchRecentMemes } from "../services/fetchRecentMemes";
+import validate from "../services/validate";
 
 export default function AdminPage() {
   const toast = useToast();
   const { setQueryFeatures } = useContext(FormContext);
-  const [openDeleteModal, setOpenDeleteModal] =
+  const [] =
     useState<React.ReactNode>(undefined);
   const [passwordValidated, setPasswordValidated] = useState(false);
   const [passwordInStorage, setPasswordInStorage] = useState("");
@@ -26,7 +37,6 @@ export default function AdminPage() {
   const getRecentCreatedMemes = useCallback(async () => {
     const { recentMemes, recentFeatures } = await fetchRecentMemes();
     setAdminMemes(recentMemes);
-    console.log("features:", recentFeatures);
     setAdminFeatures(recentFeatures);
   }, []);
 
@@ -138,54 +148,68 @@ export default function AdminPage() {
           removeFeatures
         />
       </Box>
-      <Text fontSize="2rem" className="roboto-flex-text" mt="2rem">
-        Recently Created Memes
-      </Text>
-      <Box
-        textAlign={"center"}
-        maxH="100vh"
-        w="100vw"
-        padding={{ base: "0", md: "15px" }}
-      >
-        {adminMemes && Array.isArray(adminMemes) ? (
-          <>
-            {(adminMemes ?? []).map((m, mIdx) => (
-              <MemeCard deleteFunc={deleteMemeFunc} key={mIdx} meme={m} />
-            ))}
-          </>
-        ) : (
-          <Text fontSize="1.25rem" className="roboto-flex-text">
-            They are no recently created memes!
-          </Text>
-        )}
-      </Box>
-      <Divider />
-      <Box p="0">
-        <Text
-          fontSize="2rem"
-          className="roboto-flex-text"
-          mt="2rem"
-          textAlign="center"
-        >
-          Recently Deleted Memes
-        </Text>
-        <Box
-          textAlign={"center"}
-          maxH="100vh"
-          w="100vw"
-          padding={{ base: "0", md: "15px" }}
-        >
-          {adminDeletedMemes && Array.isArray(adminDeletedMemes) ? (
-            (adminDeletedMemes ?? []).map((dM: any) => (
-              <MemeCard key={dM._id} meme={dM} />
-            ))
-          ) : (
-            <Text fontSize="1.25rem" className="roboto-flex-text">
-              They are no recently deleted memes!
+      <Accordion px="5vw" w='100vw' border='none' defaultIndex={0} allowToggle>
+        <AccordionItem border='none'>
+          <AccordionButton>
+            <Text fontSize="2rem" className="roboto-flex-text" mt="2rem">
+              Recently Created Memes
+              <AccordionIcon />
             </Text>
-          )}
-        </Box>
-      </Box>
+          </AccordionButton>
+          <AccordionPanel pb={4}>
+            <Box
+              textAlign={"center"}
+              maxH="100vh"
+              w="100vw"
+              padding={{ base: "0", md: "15px" }}
+              overflowY="auto"
+            >
+              {adminMemes && Array.isArray(adminMemes) ? (
+                <>
+                  {(adminMemes ?? []).map((m, mIdx) => (
+                    <MemeCard deleteFunc={deleteMemeFunc} key={mIdx} meme={m} />
+                  ))}
+                </>
+              ) : (
+                <Text fontSize="1.25rem" className="roboto-flex-text">
+                  They are no recently created memes!
+                </Text>
+              )}
+            </Box>
+          </AccordionPanel>
+        </AccordionItem>
+        <AccordionItem>
+          <AccordionButton>
+            <Text
+              fontSize="2rem"
+              className="roboto-flex-text"
+              mt="2rem"
+              textAlign="center"
+            >
+              Recently Deleted Memes
+              <AccordionIcon />
+            </Text>
+          </AccordionButton>
+          <AccordionPanel pb={4}>
+            <Box
+              textAlign={"center"}
+              maxH="100vh"
+              w="100vw"
+              padding={{ base: "0", md: "15px" }}
+            >
+              {adminDeletedMemes && Array.isArray(adminDeletedMemes) ? (
+                (adminDeletedMemes ?? []).map((dM: any) => (
+                  <MemeCard key={dM._id} meme={dM} />
+                ))
+              ) : (
+                <Text fontSize="1.25rem" className="roboto-flex-text">
+                  They are no recently deleted memes!
+                </Text>
+              )}
+            </Box>
+          </AccordionPanel>
+        </AccordionItem>
+      </Accordion>
     </Box>
   );
 }
