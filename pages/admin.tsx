@@ -166,7 +166,7 @@ export default function AdminPage() {
                 <Box
                   textAlign={"center"}
                   maxH="100vh"
-                  w="100vw"
+                  w="100%"
                   padding={{ base: "0", md: "15px" }}
                   overflowY="auto"
                 >
@@ -204,7 +204,7 @@ export default function AdminPage() {
                 <Box
                   textAlign={"center"}
                   maxH="100vh"
-                  w="100vw"
+                  w="100%"
                   padding={{ base: "0", md: "15px" }}
                 >
                   {adminDeletedMemes && Array.isArray(adminDeletedMemes) ? (

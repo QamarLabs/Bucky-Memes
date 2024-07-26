@@ -244,7 +244,7 @@ const MemeCard = ({ meme, deleteFunc, locale }: MemeCardProps) => {
               <Box id="delete-meme">
                 <Button
                   onClick={deleteFunc(meme._id)}
-                  size={{ base: "lg", md: "sm" }}
+                  size={{ base: "md", md: "sm" }}
                   mr={{ base: "5px", md: "0" }}
                   type="button"
                   variant="error"
