@@ -25,8 +25,6 @@ import validate from "../services/validate";
 export default function AdminPage() {
   const toast = useToast();
   const { setQueryFeatures } = useContext(FormContext);
-  const [] =
-    useState<React.ReactNode>(undefined);
   const [passwordValidated, setPasswordValidated] = useState(false);
   const [passwordInStorage, setPasswordInStorage] = useState("");
   const [adminMemes, setAdminMemes] = useState([]);
@@ -137,79 +135,93 @@ export default function AdminPage() {
         passwordValidated={passwordValidated}
         setPasswordValidated={setPasswordValidated}
       />
-      <Box px="5vw" display="flex" flexDir="column" width="99%">
-        <Text fontSize="2rem" className="roboto-flex-text" mt="2rem">
-          Recently Created Features
-        </Text>
-        {/* <Divider /> */}
-        <FeaturesFilter
-          featuresProp={adminFeatures}
-          handleRemoveFeatureProp={deleteFeatureFunc}
-          removeFeatures
-        />
-      </Box>
-      <Accordion px="5vw" w='100vw' border='none' defaultIndex={0} allowToggle>
-        <AccordionItem border='none'>
-          <AccordionButton>
+      {passwordValidated && (
+        <>
+          <Box px="5vw" display="flex" flexDir="column" width="99%">
             <Text fontSize="2rem" className="roboto-flex-text" mt="2rem">
-              Recently Created Memes
-              <AccordionIcon />
+              Recently Created Features
             </Text>
-          </AccordionButton>
-          <AccordionPanel pb={4}>
-            <Box
-              textAlign={"center"}
-              maxH="100vh"
-              w="100vw"
-              padding={{ base: "0", md: "15px" }}
-              overflowY="auto"
-            >
-              {adminMemes && Array.isArray(adminMemes) ? (
-                <>
-                  {(adminMemes ?? []).map((m, mIdx) => (
-                    <MemeCard deleteFunc={deleteMemeFunc} key={mIdx} meme={m} />
-                  ))}
-                </>
-              ) : (
-                <Text fontSize="1.25rem" className="roboto-flex-text">
-                  They are no recently created memes!
+            {/* <Divider /> */}
+            <FeaturesFilter
+              featuresProp={adminFeatures}
+              handleRemoveFeatureProp={deleteFeatureFunc}
+              removeFeatures
+            />
+          </Box>
+          <Accordion
+            px="5vw"
+            w="100vw"
+            border="none"
+            defaultIndex={0}
+            allowToggle
+          >
+            <AccordionItem border="none">
+              <AccordionButton>
+                <Text fontSize="2rem" className="roboto-flex-text" mt="2rem">
+                  Recently Created Memes
+                  <AccordionIcon />
                 </Text>
-              )}
-            </Box>
-          </AccordionPanel>
-        </AccordionItem>
-        <AccordionItem>
-          <AccordionButton>
-            <Text
-              fontSize="2rem"
-              className="roboto-flex-text"
-              mt="2rem"
-              textAlign="center"
-            >
-              Recently Deleted Memes
-              <AccordionIcon />
-            </Text>
-          </AccordionButton>
-          <AccordionPanel pb={4}>
-            <Box
-              textAlign={"center"}
-              maxH="100vh"
-              w="100vw"
-              padding={{ base: "0", md: "15px" }}
-            >
-              {adminDeletedMemes && Array.isArray(adminDeletedMemes) ? (
-                (adminDeletedMemes ?? []).map((dM: any) => (
-                  <MemeCard key={dM._id} meme={dM} />
-                ))
-              ) : (
-                <Text fontSize="1.25rem" className="roboto-flex-text">
-                  They are no recently deleted memes!
+              </AccordionButton>
+              <AccordionPanel pb={4}>
+                <Box
+                  textAlign={"center"}
+                  maxH="100vh"
+                  w="100vw"
+                  padding={{ base: "0", md: "15px" }}
+                  overflowY="auto"
+                >
+                  {adminMemes && Array.isArray(adminMemes) ? (
+                    <>
+                      {(adminMemes ?? []).map((m, mIdx) => (
+                        <MemeCard
+                          deleteFunc={deleteMemeFunc}
+                          key={mIdx}
+                          meme={m}
+                        />
+                      ))}
+                    </>
+                  ) : (
+                    <Text fontSize="1.25rem" className="roboto-flex-text">
+                      They are no recently created memes!
+                    </Text>
+                  )}
+                </Box>
+              </AccordionPanel>
+            </AccordionItem>
+            <AccordionItem>
+              <AccordionButton>
+                <Text
+                  fontSize="2rem"
+                  className="roboto-flex-text"
+                  mt="2rem"
+                  textAlign="center"
+                >
+                  Recently Deleted Memes
+                  <AccordionIcon />
                 </Text>
-              )}
-            </Box>
-          </AccordionPanel>
-        </AccordionItem>
-      </Accordion>
+              </AccordionButton>
+              <AccordionPanel pb={4}>
+                <Box
+                  textAlign={"center"}
+                  maxH="100vh"
+                  w="100vw"
+                  padding={{ base: "0", md: "15px" }}
+                >
+                  {adminDeletedMemes && Array.isArray(adminDeletedMemes) ? (
+                    (adminDeletedMemes ?? []).map((dM: any) => (
+                      <MemeCard key={dM._id} meme={dM} />
+                    ))
+                  ) : (
+                    <Text fontSize="1.25rem" className="roboto-flex-text">
+                      They are no recently deleted memes!
+                    </Text>
+                  )}
+                </Box>
+              </AccordionPanel>
+            </AccordionItem>
+          </Accordion>
+        </>
+      )}
     </Box>
   );
 }

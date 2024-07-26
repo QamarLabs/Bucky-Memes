@@ -163,6 +163,8 @@ function AdminCreateMemeForm({
                         values.password
                       );
                       setPasswordValidated(validatePwdResponse.validated);
+                      if(validatePwdResponse.validated)
+                        window.localStorage.setItem("bucky-pwd", values.password)
                       setSubmitting(false);
                     }}
                   >

@@ -26,6 +26,7 @@ function ImageEditor() {
     `"Roboto Flex", sans-serif`
   );
   const [memeTextFontColor, setMemeTextFontColor] = useState("white");
+  const [memeTextFontSize, setMemeTextFontSize] = useState<number>(24);
   const inputRef = useRef<HTMLInputElement>(null);
   const resultImageRef = useRef<any>(null);
 
@@ -42,6 +43,9 @@ function ImageEditor() {
 
   const handleTextChange = (event: any) => {
     setText((event.target.value as string).toLocaleUpperCase() ?? "");
+  };
+  const handleMemeTextFontSizeChange = (event: any) => {
+    setMemeTextFontSize(parseInt(event.target.value));
   };
   const handleMemeTextFontFamilyChange = (event: any) => {
     setMemeTextFontFamily(event.target.value);
@@ -85,15 +89,16 @@ function ImageEditor() {
             const uri = resultImageRef.current.toDataURL({ pixelRatio: 3 });
             try {
               if (isMobileDevice() && navigator.canShare) {
-                const blob = await fetch(uri).then((res) => res.blob());
-                const file = new File([blob], "canvas-image.png", {
+                const res = await fetch(uri);
+                const blob = await res.blob();
+                const file = new File([blob], `${text}.jpg`, {
                   type: "image/png",
                 });
                 if (navigator.canShare({ files: [file] }))
                   navigator.share({
                     files: [file],
-                    title: "Canvas Image",
-                    text: "Check out this image from my canvas!",
+                    title: "My created meme",
+                    text: "Download my created meme",
                   });
               } else {
                 downloadThroughLink(uri, text);
@@ -110,10 +115,10 @@ function ImageEditor() {
           <Form id="custom-meme">
             <FormControl>
               <Box
-                id='custom-meme-img-container'
+                id="custom-meme-img-container"
                 mx="auto"
                 mt={{ base: "10vh", md: "5vh" }}
-                mb={{ sm: '10vh', md: 0 }}
+                mb={{ sm: "10vh", md: 0 }}
                 px={{ base: "0vw", md: "initial" }}
                 height={{
                   base: "350px",
@@ -138,7 +143,7 @@ function ImageEditor() {
                       y={textPosition.y}
                       draggable
                       onDragEnd={handleTextDragEnd}
-                      fontSize={24}
+                      fontSize={memeTextFontSize}
                       letterSpacing={5}
                       fontStyle="bold"
                       fill={memeTextFontColor}
@@ -206,23 +211,20 @@ function ImageEditor() {
             </Field>
             <Field>
               {({ form }: any) => (
-                <Box display="flex" flexDir={{ base: "column", md: "row" }}>
-                  <FormControl
-                    isInvalid={form.errors.memeText && form.touched.memeText}
-                    className="roboto-flex-text"
-                  >
+                <Box display="flex" flexDir={"column"}>
+                  <FormControl className="roboto-flex-text">
                     <FormLabel
                       fontSize="1.5rem"
                       color="white"
-                      htmlFor="name"
+                      htmlFor="fontSize"
                       textAlign={{ base: "center", lg: "left" }}
                     >
-                      Font Family of Text
+                      Font Size of Text
                     </FormLabel>
                     <Select
                       color="white"
-                      onChange={handleMemeTextFontFamilyChange}
-                      value={memeTextFontFamily}
+                      onChange={handleMemeTextFontSizeChange}
+                      value={memeTextFontSize}
                       sx={{
                         "& option": {
                           color: "black",
@@ -231,114 +233,162 @@ function ImageEditor() {
                     >
                       <option
                         style={{ fontFamily: `"Roboto Flex", sans-serif` }}
-                        value={`"Roboto Flex", sans-serif`}
+                        value={24}
                       >
-                        Bucky
+                        Small
                       </option>
                       <option
-                        style={{
-                          fontFamily: `'Times New Roman', Times, serif`,
-                        }}
-                        value="'Times New Roman', Times, serif"
+                        style={{ fontFamily: `"Roboto Flex", sans-serif` }}
+                        value={36}
                       >
-                        Times New Roman
+                        Medium
                       </option>
                       <option
-                        style={{
-                          fontFamily: `'Courier New', Courier, monospace`,
-                        }}
-                        value="'Courier New', Courier, monospace"
+                        style={{ fontFamily: `"Roboto Flex", sans-serif` }}
+                        value={48}
                       >
-                        Courier New
+                        Large
                       </option>
                       <option
-                        style={{ fontFamily: `Verdana, Geneva, sans-serif` }}
-                        value="Verdana, Geneva, sans-serif"
+                        style={{ fontFamily: `"Roboto Flex", sans-serif` }}
+                        value={60}
                       >
-                        Verdana
-                      </option>
-                      <option
-                        style={{ fontFamily: `Georgia, serif` }}
-                        value="Georgia, serif"
-                      >
-                        Georgia
-                      </option>
-                      <option
-                        style={{
-                          fontFamily: `'Comic Sans MS', 'Comic Sans', cursive`,
-                        }}
-                        value="'Comic Sans MS', 'Comic Sans', cursive"
-                      >
-                        Comic Sans MS
+                        Extra Large
                       </option>
                     </Select>
                   </FormControl>
-                  <FormControl
-                    isInvalid={form.errors.memeText && form.touched.memeText}
-                    className="roboto-flex-text"
+                  <Box
+                    p="0"
+                    display="flex"
+                    flexDir={{ base: "column", md: "row" }}
                   >
-                    <FormLabel
-                      fontSize="1.5rem"
-                      color="white"
-                      htmlFor="name"
-                      textAlign={{ base: "center", lg: "left" }}
-                    >
-                      Font Color of Text
-                    </FormLabel>
-                    <Select
-                      color="white"
-                      onChange={handleMemeTextColorChange}
-                      value={memeTextFontColor}
-                      sx={{
-                        "& option": {
-                          color: "black",
-                        },
-                      }}
-                    >
-                      <option
-                        style={{ color: "white", backgroundColor: "black" }}
-                        value={"white"}
+                    <FormControl className="roboto-flex-text">
+                      <FormLabel
+                        fontSize="1.5rem"
+                        color="white"
+                        htmlFor="fontFamily"
+                        textAlign={{ base: "center", lg: "left" }}
                       >
-                        White
-                      </option>
-                      <option
-                        style={{ color: "black", backgroundColor: "white" }}
-                        value={"black"}
+                        Font Family of Text
+                      </FormLabel>
+                      <Select
+                        color="white"
+                        onChange={handleMemeTextFontFamilyChange}
+                        value={memeTextFontFamily}
+                        sx={{
+                          "& option": {
+                            color: "black",
+                          },
+                        }}
                       >
-                        Black
-                      </option>
-                      <option
-                        style={{ color: "blue", backgroundColor: "white" }}
-                        value={"blue"}
+                        <option
+                          style={{ fontFamily: `"Roboto Flex", sans-serif` }}
+                          value={`"Roboto Flex", sans-serif`}
+                        >
+                          Bucky
+                        </option>
+                        <option
+                          style={{
+                            fontFamily: `'Times New Roman', Times, serif`,
+                          }}
+                          value="'Times New Roman', Times, serif"
+                        >
+                          Times New Roman
+                        </option>
+                        <option
+                          style={{
+                            fontFamily: `'Courier New', Courier, monospace`,
+                          }}
+                          value="'Courier New', Courier, monospace"
+                        >
+                          Courier New
+                        </option>
+                        <option
+                          style={{ fontFamily: `Verdana, Geneva, sans-serif` }}
+                          value="Verdana, Geneva, sans-serif"
+                        >
+                          Verdana
+                        </option>
+                        <option
+                          style={{ fontFamily: `Georgia, serif` }}
+                          value="Georgia, serif"
+                        >
+                          Georgia
+                        </option>
+                        <option
+                          style={{
+                            fontFamily: `'Comic Sans MS', 'Comic Sans', cursive`,
+                          }}
+                          value="'Comic Sans MS', 'Comic Sans', cursive"
+                        >
+                          Comic Sans MS
+                        </option>
+                      </Select>
+                    </FormControl>
+                    <FormControl className="roboto-flex-text">
+                      <FormLabel
+                        fontSize="1.5rem"
+                        color="white"
+                        htmlFor="fontColor"
+                        textAlign={{ base: "center", lg: "left" }}
                       >
-                        Blue
-                      </option>
-                      <option
-                        style={{ color: "red", backgroundColor: "white" }}
-                        value={"red"}
+                        Font Color of Text
+                      </FormLabel>
+                      <Select
+                        color="white"
+                        onChange={handleMemeTextColorChange}
+                        value={memeTextFontColor}
+                        sx={{
+                          "& option": {
+                            color: "black",
+                          },
+                        }}
                       >
-                        Red
-                      </option>
-                      <option
-                        style={{ color: "purple", backgroundColor: "white" }}
-                        value={"purple"}
-                      >
-                        Purple
-                      </option>
-                      <option
-                        style={{ color: "#F3CE04", backgroundColor: "white" }}
-                        value={"#F3CE04"}
-                      >
-                        Bucky Gold
-                      </option>
-                      <option
-                        style={{ color: "silver", backgroundColor: "white" }}
-                        value={"silver"}
-                      >
-                        Silver
-                      </option>
-                    </Select>
-                  </FormControl>
+                        <option
+                          style={{ color: "white", backgroundColor: "black" }}
+                          value={"white"}
+                        >
+                          White
+                        </option>
+                        <option
+                          style={{ color: "black", backgroundColor: "white" }}
+                          value={"black"}
+                        >
+                          Black
+                        </option>
+                        <option
+                          style={{ color: "blue", backgroundColor: "white" }}
+                          value={"blue"}
+                        >
+                          Blue
+                        </option>
+                        <option
+                          style={{ color: "red", backgroundColor: "white" }}
+                          value={"red"}
+                        >
+                          Red
+                        </option>
+                        <option
+                          style={{ color: "purple", backgroundColor: "white" }}
+                          value={"purple"}
+                        >
+                          Purple
+                        </option>
+                        <option
+                          style={{ color: "#F3CE04", backgroundColor: "white" }}
+                          value={"#F3CE04"}
+                        >
+                          Bucky Gold
+                        </option>
+                        <option
+                          style={{ color: "silver", backgroundColor: "white" }}
+                          value={"silver"}
+                        >
+                          Silver
+                        </option>
+                      </Select>
+                    </FormControl>
+                  </Box>
                 </Box>
               )}
             </Field>
